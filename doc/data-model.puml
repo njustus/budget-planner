@@ -1,0 +1,36 @@
+@startuml
+
+class AppUser {
+  name
+}
+
+class Budget {
+  name
+  description
+}
+
+class Account {
+  name
+}
+
+class Payment {
+  name
+  amount: decimal
+  description
+  tags
+}
+
+class Category {
+  name
+}
+
+class TimedTransaction {
+  period
+}
+
+AppUser "*" -- "*" Budget : has >
+Budget "1" -- "+" Account : part of <
+Account "1" -- "*" Payment : payed due <
+Payment "*" -- "*" Category : categorized due >
+
+@enduml
