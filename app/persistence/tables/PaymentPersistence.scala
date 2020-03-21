@@ -21,4 +21,9 @@ object PaymentPersistence extends Persistence {
   private[tables] val tableQuery = TableQuery[PaymentTable]
 
   override def ddls: Iterable[String] = tableQuery.schema.create.statements
+
+  def insert(payment: Payment) = {
+    val query = tableQuery returning tableQuery.map(_.id) into ((payment, id) => payment.copy(_id=id))
+    query += payment
+  }
 }

@@ -19,7 +19,7 @@ class DeveloperController @Inject()(protected val dbConfigProvider: DatabaseConf
 
   def seedDatabase = Action.async { implicit request: Request[AnyContent] =>
     for {
-      (budget, account) <- dbConfigProvider.get.db.run(Seed.seedDatabase)
-    } yield Ok(budget.asJson)
+      payments <- dbConfigProvider.get.db.run(Seed.seedDatabase)
+    } yield Ok(payments.asJson)
   }
 }
