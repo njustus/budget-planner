@@ -4,8 +4,8 @@
 .classpath
 .project
 .settings
-.externalToolBuilders
 .metals
+.bloop
 
 *.log
 *.class
@@ -18,11 +18,5 @@
 bin
 data
 target
-data
 project/target
-private
-deployment/config/auth-svc.settings.yml
-doc/index.html
-doc/readme.html
-README.html
-thesis
+project/metals.sbt
