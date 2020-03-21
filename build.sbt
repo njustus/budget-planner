@@ -1,11 +1,17 @@
-name := """budget-planner"""
-organization := "com.example"
 
-version := "1.0-SNAPSHOT"
-
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
-
-scalaVersion := "2.13.1"
+lazy val root = (project in file("."))
+.enablePlugins(PlayScala)
+.enablePlugins(FlywayPlugin)
+.settings(Seq(
+  name := """budget-planner""",
+  organization := "com.example",
+  version := "1.0-SNAPSHOT",
+  scalaVersion := "2.13.1",
+  flywayLocations := Seq("filesystem:migrations"),
+  flywayUrl := "jdbc:postgresql://localhost:5432/budget-planner",
+  flywayUser := "planner",
+  flywayPassword := "testPass",
+))
 
 libraryDependencies ++= Seq(
   guice,

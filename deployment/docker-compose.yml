@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  db:
+    image: 'postgres:12-alpine'
+    ports:
+      - "5432:5432"
+    volumes:
+      - budget-planner-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=budget-planner
+      - POSTGRES_USER=planner
+      - POSTGRES_PASSWORD=testPass
+
+volumes:
+  budget-planner-db:
