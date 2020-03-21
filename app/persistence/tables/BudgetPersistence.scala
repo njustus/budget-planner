@@ -17,4 +17,8 @@ object BudgetPersistence extends Persistence {
 
   override def ddls: Iterable[String] = tableQuery.schema.create.statements
 
+  def create(budget: Budget) = {
+    val query = tableQuery returning tableQuery.map(_.id) into ((budget, id) => budget.copy(_id=id))
+    query += budget
+  }
 }

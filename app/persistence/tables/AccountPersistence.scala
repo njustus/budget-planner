@@ -19,4 +19,9 @@ object AccountPersistence extends Persistence {
   private[tables] val tableQuery = TableQuery[AccountTable]
 
   override def ddls: Iterable[String] = tableQuery.schema.create.statements
+
+  def create(account: Account) = {
+    val query = tableQuery returning tableQuery.map(_.id) into ((account, id) => account.copy(_id=id))
+    query += account
+  }
 }

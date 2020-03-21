@@ -13,6 +13,8 @@ lazy val root = (project in file("."))
   flywayPassword := "testPass",
 ))
 
+scalacOptions += "-Ymacro-annotations"
+
 libraryDependencies ++= Seq(
   guice,
   "org.postgresql" % "postgresql" % "42.2.+",
@@ -22,6 +24,7 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-generic" % "0.13.+",
   "org.typelevel" %% "cats-core" % "2.0.+",
   "io.scalaland" %% "chimney" % "0.5.+",
+  "com.github.javafaker" % "javafaker" % "0.+",
   "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
 )
 
