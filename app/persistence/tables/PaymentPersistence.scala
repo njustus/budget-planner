@@ -13,6 +13,10 @@ class PaymentPersistence @Inject()(context: QuillContext,
 
   def findAll: Future[List[Payment]] = Future { context.run(accounts) }
 
+  def findById(id:Long): Future[Option[Payment]] = Future { context.run(accounts.filter(p => p._id == lift(id)).take(1)).headOption }
+
+  def deleteById(id:Long): Future[Unit] = Future { context.run(accounts.filter(p => p._id == lift(id)).delete) }
+
   def insert(p:Payment): Future[Payment] = Future {
     val id = context.run(accounts.insert(lift(p)).returningGenerated(_._id))
     p.copy(_id=id)
