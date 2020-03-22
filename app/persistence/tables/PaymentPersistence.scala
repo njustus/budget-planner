@@ -14,6 +14,7 @@ class PaymentPersistence @Inject()(context: QuillContext,
   def findAll: Future[List[Payment]] = Future { context.run(accounts) }
 
   def insert(p:Payment): Future[Payment] = Future {
-    context.run(accounts.insert(lift(p)).returningGenerated(p => p))
+    val id = context.run(accounts.insert(lift(p)).returningGenerated(_._id))
+    p.copy(_id=id)
   }
 }

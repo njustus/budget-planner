@@ -20,15 +20,11 @@ class BudgetController @Inject()(val cc: ControllerComponents,
   implicit val ec = cc.executionContext
 
   def index = Action.async { implicit request =>
-    accP.findAll.map(xs => Ok(xs.asJson))
+    payP.findAll.map(xs => Ok(xs.asJson))
   }
 
   def test = Action.async { implicit request =>
-    Future.sequence(
-      Seed.genPayments(1).map { p =>
-        println(s"inserting $p")
-        payP.insert(p)
-      }
-    ).map(xs => Ok(xs.asJson))
+    Future.sequence(Seed.genPayments(1).map(payP.insert))
+      .map(xs => Ok(xs.asJson))
   }
 }

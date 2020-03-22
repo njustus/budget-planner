@@ -14,6 +14,7 @@ class AccountPersistence @Inject()(context: QuillContext,
   def findAll: Future[List[Account]] = Future { context.run(accounts) }
 
   def insert(a:Account): Future[Account] = Future {
-    context.run(accounts.insert(lift(a)).returningGenerated(a => a))
+    val id = context.run(accounts.insert(lift(a)).returningGenerated(_._id))
+    a.copy(_id = id)
   }
 }
