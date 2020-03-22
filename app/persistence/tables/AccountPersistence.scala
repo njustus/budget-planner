@@ -1,27 +1,19 @@
 package persistence.tables
 
+import javax.inject.Inject
 import persistence.models.Account
-import slick.jdbc.JdbcProfile
 
-object AccountPersistence extends Persistence {
-  import api._
+import scala.concurrent.{ExecutionContext, Future}
 
-  class AccountTable(tag: Tag) extends Table[Account](tag, "account") {
-    def id = column[Long]("_id", O.PrimaryKey, O.AutoInc)
-    def budget_fk= column[Long]("_budgetId")
-    def budget = foreignKey("budget_fk", budget_fk, BudgetPersistence.tableQuery)(_.id)
+class AccountPersistence @Inject()(context: QuillContext,
+                        implicit val ec: ExecutionContext) {
+  import context._
 
-    def name = column[String]("name")
+  private val accounts = quote(querySchema[Account]("account"))
 
-    override def * = (name, budget_fk, id) <> (Account.tupled, Account.unapply)
-  }
+  def findAll: Future[List[Account]] = Future { context.run(accounts) }
 
-  private[tables] val tableQuery = TableQuery[AccountTable]
-
-  override def ddls: Iterable[String] = tableQuery.schema.create.statements
-
-  def create(account: Account) = {
-    val query = tableQuery returning tableQuery.map(_.id) into ((account, id) => account.copy(_id=id))
-    query += account
+  def insert(a:Account): Future[Account] = Future {
+    context.run(accounts.insert(lift(a)).returningGenerated(a => a))
   }
 }
