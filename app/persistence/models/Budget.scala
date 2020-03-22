@@ -5,4 +5,5 @@ import io.circe.generic.JsonCodec
 @JsonCodec
 case class Budget(name: String,
                   description: Option[String],
-                 _id: Long)
+                  override val _id: Long)
+  extends BaseEntity(_id)
