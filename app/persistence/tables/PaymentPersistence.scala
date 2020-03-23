@@ -6,7 +6,8 @@ import persistence.models.Payment
 import scala.concurrent.{ExecutionContext, Future}
 
 class PaymentPersistence @Inject()(context: QuillContext,
-                        implicit val ec: ExecutionContext) {
+                        implicit val ec: ExecutionContext)
+  extends Persistence[Payment] {
   import context._
 
   private val accounts = quote(querySchema[Payment]("payment"))
