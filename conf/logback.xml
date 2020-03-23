@@ -33,6 +33,10 @@
 
   <logger name="play" level="INFO" />
   <logger name="application" level="DEBUG" />
+  <logger name="controllers" level="DEBUG" />
+  <logger name="services" level="DEBUG" />
+  <logger name="security" level="DEBUG" />
+  <logger name="persistence" level="DEBUG" />
   <logger name="io.getquill" level="DEBUG" />
 
   <root level="WARN">

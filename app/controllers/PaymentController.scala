@@ -5,12 +5,14 @@ import persistence.tables._
 import play.api.mvc._
 import io.circe.syntax._
 import persistence.models.Payment
+import security.AuthenticationService
 
 import scala.concurrent.Future
 
 @Singleton
 class PaymentController @Inject()(cc: ControllerComponents,
-                                 payP: PaymentPersistence)
+                                 payP: PaymentPersistence,
+                                 override val authenticationService: AuthenticationService)
   extends ResourceController[Payment](cc, payP) {
 
   def test = Action.async { implicit request =>

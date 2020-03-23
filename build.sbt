@@ -3,6 +3,9 @@ lazy val root = (project in file("."))
 .enablePlugins(PlayScala)
 .enablePlugins(FlywayPlugin)
 .settings(Seq(
+  sources in (Compile, doc) := Seq.empty,
+  publishArtifact in (Compile, packageDoc) := false,
+  PlayKeys.playDefaultPort := 8080,
   name := """budget-planner""",
   organization := "com.example",
   version := "1.0-SNAPSHOT",
@@ -25,6 +28,7 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-generic" % "0.13.+",
   "org.typelevel" %% "cats-core" % "2.0.+",
   "io.scalaland" %% "chimney" % "0.5.+",
+  "com.pauldijou" %% "jwt-circe" % "4.2.+",
   "com.github.javafaker" % "javafaker" % "0.+",
   "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
 )
