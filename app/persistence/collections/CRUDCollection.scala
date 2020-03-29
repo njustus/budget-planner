@@ -15,11 +15,14 @@ trait CRUDCollection[Entity <: BaseEntity] {
 
   def create(entity:Entity): Future[Entity] = collection.flatMap(c => c.insert.one(entity)).map(_ => entity)
 
-  def findAll(): Future[Vector[Entity]] =
-    collection.flatMap(c => c.find(BSONDocument.empty, None)
+  def findAll(): Future[Vector[Entity]] = collection.flatMap { c =>
+    c.find(BSONDocument.empty, None)
       .cursor[Entity]()
-    .collect[Vector](maxDocs = -1, err = Cursor.FailOnError[Vector[Entity]]()))
+      .collect[Vector](maxDocs = -1, err = Cursor.FailOnError[Vector[Entity]]())
+  }
 
-  def findById(id: String): Future[Option[Entity]] =
-    collection.flatMap(c => c.find(BSONDocument("_id" -> BSONObjectID.parse(id).get), None).one[Entity])
+  def findById(id: String): Future[Option[Entity]] = collection.flatMap{ c =>
+    c.find(BSONDocument("_id" -> BSONObjectID.parse(id).get), None)
+      .one[Entity]
+  }
 }

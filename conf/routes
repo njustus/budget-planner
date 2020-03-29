@@ -22,6 +22,7 @@ POST   /seed                     controllers.DevController.seed
 #GET     /accounts/:id                 controllers.AccountController.findById(id: Long)
 #DELETE  /accounts/:id                 controllers.AccountController.deleteById(id: Long)
 
+GET   /accounts/:id/payments          controllers.AccountController.findPayments(id: String)
 
 GET     /budgets                     controllers.BudgetController.findAll
 POST    /budgets                     controllers.BudgetController.create
