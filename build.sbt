@@ -24,6 +24,7 @@ libraryDependencies ++= Seq(
   "com.dripower" %% "play-circe" % "2812.+",
   "io.circe" %% "circe-core" % "0.13.+",
   "io.circe" %% "circe-generic" % "0.13.+",
+  "io.circe" %% "circe-generic-extras" % "0.13.+",
   "org.typelevel" %% "cats-core" % "2.0.+",
   "io.scalaland" %% "chimney" % "0.5.+",
   "com.pauldijou" %% "jwt-circe" % "4.2.+",

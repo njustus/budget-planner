@@ -21,5 +21,5 @@ trait CRUDCollection[Entity <: BaseEntity] {
     .collect[Vector](maxDocs = -1, err = Cursor.FailOnError[Vector[Entity]]()))
 
   def findById(id: String): Future[Option[Entity]] =
-    collection.flatMap(c => c.find(BSONDocument("_id" -> id), None).one[Entity])
+    collection.flatMap(c => c.find(BSONDocument("_id" -> BSONObjectID.parse(id).get), None).one[Entity])
 }
