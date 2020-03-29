@@ -17,7 +17,6 @@ class BudgetCollection @Inject()(mongo: ReactiveMongoApi)(implicit exec: Executi
   val budgets:Future[BSONCollection] = mongo.database.map(_.collection("budgets"))
 
   def create(b: Budget): Future[Budget] = {
-    val newB = b.copy(_id = Some(BSONObjectID.generate()))
-    budgets.flatMap(c => c.insert.one(newB)).map(_ => newB)
+    budgets.flatMap(c => c.insert.one(b)).map(_ => b)
   }
 }

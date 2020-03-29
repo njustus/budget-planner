@@ -16,7 +16,7 @@ class BudgetController @Inject()(cc: ControllerComponents,
   extends ResourceController[Budget](cc) {
 
   def findAll = Action.async { implicit req =>
-    val b = Budget("test-b", Some("blup"), Seq(Account("commerzbank"), Account("db", None)))
+    val b = Budget("test-b", Some("blup"), Seq(Account("commerzbank"), Account("db")))
     budgetCollection.create(b).map(b => Ok(b.asJson))
   }
 }
