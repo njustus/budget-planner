@@ -9,5 +9,6 @@ case class Payment(name: String,
                    description:Option[String],
                    amount: Double,
                    _accountId: BSONObjectID,
+                  owner:Option[String]=None,
                   override val _id: BSONObjectID=BSONObjectID.generate())
-  extends BaseEntity(_id)
+  extends BaseEntity(_id, owner)

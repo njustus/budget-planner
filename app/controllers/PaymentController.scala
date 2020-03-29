@@ -3,7 +3,7 @@ package controllers
 import javax.inject._
 import play.api.mvc._
 import io.circe.syntax._
-import persistence.models.Payment
+import persistence.models.{AuthUser, Payment}
 import JSONSerializer._
 import persistence.collections.PaymentCollection
 import security.AuthenticationService
@@ -16,4 +16,5 @@ class PaymentController @Inject()(cc: ControllerComponents,
                                  override val authenticationService: AuthenticationService)
   extends ResourceController[Payment](cc, paymentCollection) {
 
+  override def createRequestEntity(user:AuthUser, payment:Payment): Payment = payment.copy(owner=Some(user.username))
 }

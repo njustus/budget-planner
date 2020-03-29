@@ -1,6 +1,6 @@
 package controllers
 
-import persistence.models.BaseEntity
+import persistence.models.{AuthUser, BaseEntity}
 import play.api.Logging
 import play.api.libs.circe.Circe
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
@@ -42,8 +42,9 @@ abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.c
 
   def create = withUser { user =>
     Action.async(circe.json[Entity]) { implicit request =>
-      logger.info(s"creating ${request.body}")
-      persistence.create(request.body).map { x =>
+      val entity = createRequestEntity(user, request.body)
+      logger.info(s"creating ${entity}")
+      persistence.create(entity).map { x =>
         logger.info(s"created: $x")
         Ok(x.asJson)
       }
@@ -59,4 +60,6 @@ abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.c
   }
 
  */
+
+  def createRequestEntity(user:AuthUser, e:Entity): Entity = e
 }
