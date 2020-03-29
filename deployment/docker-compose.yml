@@ -17,9 +17,21 @@ services:
   mongo:
     image: "mongo:3.4"
     restart: on-failure
+    ports:
+      - "27017:27017"
     volumes:
       - mongo_db:/data/db
+    labels:
       - "traefik.enable=false"
+  admin_mongo:
+    image: "mongo-express"
+    restart: on-failure
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_SITE_BASEURL=/mongo/
+      - VCAP_APP_HOST=0.0.0.0
+    labels:
+      - "traefik.http.routers.admin-mongo.rule=PathPrefix(`/mongo`)"
   user-svc:
     image: hobbypunk90/mt-services-user:fa26b3d
     # ports:
@@ -54,17 +66,6 @@ services:
       - ./config/auth-svc.settings.yml:/config.yml
     labels:
       - "traefik.http.routers.auth-svc.rule=PathPrefix(`/api/v{[0-9]+}/auths`)"
-
-  db:
-    image: 'postgres:12-alpine'
-    ports:
-      - "5432:5432"
-    volumes:
-      - budget-planner-db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=budget-planner
-      - POSTGRES_USER=planner
-      - POSTGRES_PASSWORD=testPass
 
 volumes:
   budget-planner-db:

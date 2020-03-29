@@ -20,9 +20,7 @@ scalacOptions += "-Ymacro-annotations"
 
 libraryDependencies ++= Seq(
   guice,
-  javaJdbc,
-  "org.postgresql" % "postgresql" % "42.2.+",
-  "io.getquill" %% "quill-jdbc" % "3.5.+",
+  "org.reactivemongo" %% "play2-reactivemongo" % "0.20.3-play28",
   "com.dripower" %% "play-circe" % "2812.+",
   "io.circe" %% "circe-core" % "0.13.+",
   "io.circe" %% "circe-generic" % "0.13.+",

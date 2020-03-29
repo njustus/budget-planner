@@ -1,3 +1,5 @@
 package persistence.models
 
-abstract class BaseEntity(val _id:Long) extends Product
+import reactivemongo.api.bson._
+
+abstract class BaseEntity(val _id: Option[BSONObjectID]) extends Product

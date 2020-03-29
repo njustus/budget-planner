@@ -1,11 +1,11 @@
 package persistence.models
 
 import io.circe.generic.JsonCodec
+import reactivemongo.api.bson._
 
-@JsonCodec
 case class Payment(name: String,
                    description:Option[String],
                    amount: Double,
-                   _accountId:Long,
-                  override val _id: Long)
+                   _accountId: BSONObjectID,
+                  override val _id: Option[BSONObjectID])
   extends BaseEntity(_id)

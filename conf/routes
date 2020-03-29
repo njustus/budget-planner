@@ -10,21 +10,21 @@ GET     /                           controllers.HomeController.index
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 
-GET     /payments                     controllers.PaymentController.findAll
-POST    /payments                     controllers.PaymentController.create
-GET     /payments/:id                 controllers.PaymentController.findById(id: Long)
-DELETE  /payments/:id                 controllers.PaymentController.deleteById(id: Long)
+#GET     /payments                     controllers.PaymentController.findAll
+#POST    /payments                     controllers.PaymentController.create
+#GET     /payments/:id                 controllers.PaymentController.findById(id: Long)
+#DELETE  /payments/:id                 controllers.PaymentController.deleteById(id: Long)
 
-POST   /seed                     controllers.PaymentController.test
+#POST   /seed                     controllers.PaymentController.test
 
 
-GET     /accounts                     controllers.AccountController.findAll
-POST    /accounts                     controllers.AccountController.create
-GET     /accounts/:id                 controllers.AccountController.findById(id: Long)
-DELETE  /accounts/:id                 controllers.AccountController.deleteById(id: Long)
+#GET     /accounts                     controllers.AccountController.findAll
+#POST    /accounts                     controllers.AccountController.create
+#GET     /accounts/:id                 controllers.AccountController.findById(id: Long)
+#DELETE  /accounts/:id                 controllers.AccountController.deleteById(id: Long)
 
 
 GET     /budgets                     controllers.BudgetController.findAll
-POST    /budgets                     controllers.BudgetController.create
-GET     /budgets/:id                 controllers.BudgetController.findById(id: Long)
-DELETE  /budgets/:id                 controllers.BudgetController.deleteById(id: Long)
+#POST    /budgets                     controllers.BudgetController.create
+#GET     /budgets/:id                 controllers.BudgetController.findById(id: Long)
+#DELETE  /budgets/:id                 controllers.BudgetController.deleteById(id: Long)

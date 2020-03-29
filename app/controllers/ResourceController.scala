@@ -1,22 +1,21 @@
 package controllers
 
 import persistence.models.BaseEntity
-import persistence.tables.Persistence
 import play.api.Logging
 import play.api.libs.circe.Circe
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 import io.circe.syntax._
 import security.AppSecurity
 
-abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.circe.Decoder](cc: ControllerComponents,
-                                                        persistence: Persistence[Entity])
+abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.circe.Decoder](cc: ControllerComponents)
   extends AbstractController(cc)
   with AppSecurity
   with Circe
+  with JSONSerializer
   with Logging {
 
   implicit val ec = cc.executionContext
-
+/*
     def findAll = withUser { user =>
       Action.async { implicit request =>
         persistence.findAll.map { xs =>
@@ -56,4 +55,6 @@ abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.c
       persistence.deleteById(id).map(_ => NoContent)
     }
   }
+
+ */
 }

@@ -1,9 +1,8 @@
 package persistence.models
 
 import io.circe.generic.JsonCodec
+import reactivemongo.api.bson.BSONObjectID
 
-@JsonCodec
 case class Account(name: String,
-                  _budgetId: Long,
-                  override val _id: Long)
+                  override val _id: Option[BSONObjectID] = Some(BSONObjectID.generate()))
   extends BaseEntity(_id)
