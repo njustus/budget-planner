@@ -14,5 +14,5 @@ class PaymentCollection @Inject()(mongo: ReactiveMongoApi)(override implicit val
 
   override implicit def handler: BSONDocumentHandler[Payment] = BSONSerializer.paymentHandler
 
-  override def collection: Future[BSONCollection] = mongo.database.map(_.collection("budgets"))
+  override def collection: Future[BSONCollection] = mongo.database.map(_.collection("payments"))
 }
