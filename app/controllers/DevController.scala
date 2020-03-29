@@ -1,6 +1,7 @@
 package controllers
 
-import java.time.LocalDate
+import java.time.{LocalDate, ZoneId}
+import java.util.concurrent.TimeUnit
 
 import javax.inject.{Inject, Singleton}
 import persistence.collections.{BudgetCollection, PaymentCollection}
@@ -42,8 +43,8 @@ class DevController @Inject()(cc: ControllerComponents,
 
   def budget(): Future[Budget] = {
     val accounts = Seq(
-      Account("commerzbank"),
-      Account("db"),
+      Account(faker.zelda().character()),
+      Account(faker.zelda().character()),
     )
     val b = Budget(
       faker.internet().domainName(),
@@ -61,9 +62,9 @@ class DevController @Inject()(cc: ControllerComponents,
         (0 until faker.number().numberBetween(0, 100)).map { _ =>
         val payment = Payment(
           faker.commerce().productName(),
-          Some(faker.hipster().word()),
+          Some(faker.harryPotter().quote()),
           faker.number().randomDouble(2, -600, 1000),
-          LocalDate.now(),
+          LocalDate.ofInstant(faker.date().past(365, TimeUnit.DAYS).toInstant, ZoneId.systemDefault()),
           Some(username),
           accountId
         )
