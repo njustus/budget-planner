@@ -15,8 +15,7 @@ POST    /payments                     controllers.PaymentController.create
 GET     /payments/:id                 controllers.PaymentController.findById(id: String)
 #DELETE  /payments/:id                 controllers.PaymentController.deleteById(id: Long)
 
-#POST   /seed                     controllers.PaymentController.test
-
+POST   /seed                     controllers.DevController.seed
 
 #GET     /accounts                     controllers.AccountController.findAll
 #POST    /accounts                     controllers.AccountController.create
