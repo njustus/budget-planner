@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Login</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>Please login with one of our supported services.</p>
+    
+    <mat-form-field>
+      <mat-label>Developer user</mat-label>
+      <mat-select [(value)]="selectedUser">
+        <mat-option *ngFor="let username of devUsers" [value]="username">
+          {{username}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <button mat-button>Login</button>
+  
+    <mat-divider *ngIf="devUsers && devUsers.length>0"></mat-divider>
+    <a mat-button [href]="'api/v1/auths/'+provider.provider" *ngFor="let provider of providers">{{provider.name}}</a>
+
+  </mat-card-content>
+</mat-card>
