@@ -13,10 +13,6 @@ import io.circe.syntax._
 class BudgetController @Inject()(cc: ControllerComponents,
                                  budgetCollection: BudgetCollection,
                                  override val authenticationService: AuthenticationService)
-  extends ResourceController[Budget](cc) {
+  extends ResourceController[Budget](cc, budgetCollection) {
 
-  def findAll = Action.async { implicit req =>
-    val b = Budget("test-b", Some("blup"), Seq(Account("commerzbank"), Account("db")))
-    budgetCollection.create(b).map(b => Ok(b.asJson))
-  }
 }

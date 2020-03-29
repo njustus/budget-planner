@@ -5,9 +5,10 @@ import play.api.Logging
 import play.api.libs.circe.Circe
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 import io.circe.syntax._
+import persistence.collections.CRUDCollection
 import security.AppSecurity
 
-abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.circe.Decoder](cc: ControllerComponents)
+abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.circe.Decoder](cc: ControllerComponents, persistence:CRUDCollection[Entity])
   extends AbstractController(cc)
   with AppSecurity
   with Circe
@@ -15,7 +16,7 @@ abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.c
   with Logging {
 
   implicit val ec = cc.executionContext
-/*
+
     def findAll = withUser { user =>
       Action.async { implicit request =>
         persistence.findAll.map { xs =>
@@ -25,7 +26,7 @@ abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.c
       }
     }
 
-  def findById(id:Long) = withUser { user =>
+  def findById(id:String) = withUser { user =>
     Action.async { implicit request =>
       logger.info(s"searching for id:$id")
       persistence.findById(id).map {
@@ -42,13 +43,14 @@ abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.c
   def create = withUser { user =>
     Action.async(circe.json[Entity]) { implicit request =>
       logger.info(s"creating ${request.body}")
-      persistence.insert(request.body).map { x =>
+      persistence.create(request.body).map { x =>
         logger.info(s"created: $x")
         Ok(x.asJson)
       }
     }
   }
 
+  /*
   def deleteById(id: Long) = withUser { user =>
     Action.async { implicit request =>
       logger.info(s"deleting id: $id")
