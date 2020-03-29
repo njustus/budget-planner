@@ -15,5 +15,5 @@ class BudgetController @Inject()(cc: ControllerComponents,
                                  override val authenticationService: AuthenticationService)
   extends ResourceController[Budget](cc, budgetCollection) {
 
-  override def createRequestEntity(user:AuthUser, budget:Budget): Budget = budget.copy(owner=Some(user.username))
+  override def createRequestEntity(user:AuthUser, budget:Budget): Budget = budget.copy(owner=Some(user.username), investors = Seq(user.username))
 }
