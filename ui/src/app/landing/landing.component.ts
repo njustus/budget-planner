@@ -4,8 +4,6 @@ import { Subject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 
-const bearerCookie = 'token'
-
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
@@ -23,14 +21,10 @@ export class LandingComponent implements OnInit {
     private readonly cookieService: CookieService,
     private readonly authService: AuthenticationService,
     private readonly router: Router) {
-    if (cookieService.check(bearerCookie)) {
-      const token = cookieService.get(bearerCookie)
-      console.log("found token: ", token)
 
-      authService.updateToken(token)
-      router.navigateByUrl('/budget-planner')
-    }
-
+      if(authService.isLoggedIn()) {
+        router.navigateByUrl('/budget-planner')
+      }
   }
 
 

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,6 +40,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { AuthenticationService, securityInterceptor } from './authentication.service';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatPaginatorModule
   ],
   providers: [
-    CookieService
+    CookieService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: securityInterceptor,
+      multi: true,
+      deps: [CookieService, AuthenticationService]
+    }
   ],
   bootstrap: [AppComponent]
 })

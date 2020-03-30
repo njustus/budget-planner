@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import {map} from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
 
 export interface AuthenticationProvider {
   color?: string
@@ -11,6 +12,18 @@ export interface AuthenticationProvider {
 }
 
 const authServiceRoute = "api/v1/auths"
+const bearerCookie = 'token'
+
+export function securityInterceptor(cookieService: CookieService, authService: AuthenticationService) {
+  return () => {
+      if (cookieService.check(bearerCookie)) {
+        const token = cookieService.get(bearerCookie)
+        console.log("found token: ", token)
+
+        authService.updateToken(token)
+      }
+  }
+}
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +45,10 @@ export class AuthenticationService {
     }
 
     return this.token$.value
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.token$.value
   }
 
   findDeveloperLogin(): Observable<string[]> {
