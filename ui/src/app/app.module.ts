@@ -12,23 +12,25 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import {CookieService} from 'ngx-cookie-service';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { BudgetPlannerModule } from './budget-planner/budget-planner.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponent,
-    DashboardComponent
+    LandingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FlexLayoutModule,
     MatSelectModule,
     MatCardModule,
     MatButtonModule,
-    MatDividerModule
+    MatDividerModule,
+    BudgetPlannerModule
   ],
   providers: [
     CookieService
