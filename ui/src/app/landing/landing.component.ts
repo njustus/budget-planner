@@ -28,7 +28,7 @@ export class LandingComponent implements OnInit {
       console.log("found token: ", token)
 
       authService.updateToken(token)
-      router.navigateByUrl('/dashboard')
+      router.navigateByUrl('/budget-planner')
     }
 
   }
