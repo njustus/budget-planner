@@ -1,3 +1,25 @@
-<p>budget-planner works!</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <span>menu</span>
+    </button>
+    <h1>Budget-Planner</h1>
+  </mat-toolbar-row>
+</mat-toolbar>
 
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav opened>
+    <mat-nav-list>
+      <mat-list-item>Dashboard</mat-list-item>
+      <div mat-subheader>Budgets</div>
+        <a mat-list-item href="#">All</a>
+        <a mat-list-item href="#" *ngFor="let budget of budgets">{{budget.name}}</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div style="height: 88vh;">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

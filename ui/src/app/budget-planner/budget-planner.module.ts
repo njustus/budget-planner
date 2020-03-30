@@ -3,7 +3,11 @@ import { CommonModule } from '@angular/common';
 import { BudgetPlannerComponent } from './budget-planner.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule, Route } from '@angular/router';
-
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatListModule } from '@angular/material';
 
 const routes: Route[] = [
   {
@@ -19,7 +23,9 @@ const routes: Route[] = [
 ]
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(routes),
+  ],
   exports: [RouterModule]
 })
 export class BudgetPlannerRoutingModule {}
@@ -28,7 +34,10 @@ export class BudgetPlannerRoutingModule {}
   declarations: [BudgetPlannerComponent, DashboardComponent],
   imports: [
     BudgetPlannerRoutingModule,
-    CommonModule
+    CommonModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule
   ]
 })
 export class BudgetPlannerModule { }
