@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material';
 import { AuthenticationInterceptor } from '../authentication.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BudgetComponent } from './budget/budget.component';
 
 const routes: Route[] = [
   {
@@ -19,6 +20,10 @@ const routes: Route[] = [
       {
         path: '',
         component: DashboardComponent
+      },
+      {
+        path: 'budget/:budgetId',
+        component: BudgetComponent
       }
     ]
   }
@@ -28,7 +33,8 @@ const routes: Route[] = [
   imports: [
     RouterModule.forChild(routes),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  declarations: [BudgetComponent]
 })
 export class BudgetPlannerRoutingModule {}
 
