@@ -4,11 +4,22 @@
       <mat-icon>menu</mat-icon>
     </button>
     <h1>Budget-Planner</h1>
+
+    <span fxFlex="1 1 auto"></span>
+
+    <button mat-button color="accent">
+      <mat-icon>add_circle</mat-icon>
+      Payment
+    </button>
+    <button mat-button color="basic">
+      <mat-icon>person_add</mat-icon>
+      Invide
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav opened [fixedInViewport]="false">
+  <mat-sidenav #sidenav [fixedInViewport]="false">
     <mat-nav-list>
       <mat-list-item>Dashboard</mat-list-item>
       <div mat-subheader>Budgets</div>
