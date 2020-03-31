@@ -18,7 +18,6 @@ export function securityInterceptor(cookieService: CookieService, authService: A
   return () => {
       if (cookieService.check(bearerCookie)) {
         const token = cookieService.get(bearerCookie)
-        console.log("found token: ", token)
 
         authService.updateToken(token)
       }
