@@ -28,6 +28,7 @@ export class BudgetComponent implements OnInit {
   }
 
   get accounts(): Account[] {
-    return (this.budget) ? [BudgetComponent.syntheticAllAccount, ...this.budget.accounts] : [];
+    // return (this.budget) ? [BudgetComponent.syntheticAllAccount, ...this.budget.accounts] : [];
+    return (this.budget) ? this.budget.accounts : []
   }
 }

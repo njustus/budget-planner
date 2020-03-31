@@ -1,0 +1,13 @@
+.payment-item {
+  &_header {
+    justify-content: space-between;
+    align-items: center;
+
+    &-negative {
+      color: red;
+    }
+    &-positive {
+      color: greenyellow;
+    }
+  }
+}

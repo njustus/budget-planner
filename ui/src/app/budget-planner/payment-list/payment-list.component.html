@@ -1,0 +1,15 @@
+<mat-accordion *ngIf="!!payments">
+
+  <mat-expansion-panel *ngFor="let payment of payments" class="payment-item">
+    <mat-expansion-panel-header>
+      <mat-panel-description class="payment-item_header">
+        <div>{{payment.date | date: 'mediumDate'}}</div>
+        <div>{{payment.name}}</div>
+        <div [ngClass]="{'payment-item_header-positive': payment.amount>=0, 'payment-item_header-negative': payment.amount<0}">{{payment.amount}}</div>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    {{payment.description}}
+  </mat-expansion-panel>
+
+</mat-accordion>

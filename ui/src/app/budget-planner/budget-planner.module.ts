@@ -13,12 +13,14 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BudgetComponent } from './budget/budget.component';
 import { SharedModule } from '../shared/shared.module';
 import { BudgetPlannerRoutingModule } from './budget-planner-routing.module';
+import { PaymentListComponent } from './payment-list/payment-list.component';
 
 @NgModule({
   declarations: [
     BudgetPlannerComponent,
     BudgetComponent,
-    DashboardComponent
+    DashboardComponent,
+    PaymentListComponent
   ],
   imports: [
     BudgetPlannerRoutingModule,
