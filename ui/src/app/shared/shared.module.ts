@@ -1,15 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-import { LandingComponent } from './landing/landing.component';
-
-import {CookieService} from 'ngx-cookie-service';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { BudgetPlannerModule } from './budget-planner/budget-planner.module';
 import { MatCheckboxModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
@@ -40,33 +31,42 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { AuthenticationService, securityInterceptor } from './authentication.service';
-import { CommonModule } from '@angular/common';
-import { SharedModule } from './shared/shared.module';
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LandingComponent
+  exports: [
+    FlexLayoutModule,
+    MatCheckboxModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatButtonToggleModule,
+    MatChipsModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    CommonModule,
-    SharedModule,
-    BudgetPlannerModule
-  ],
-  providers: [
-    CookieService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: securityInterceptor,
-      multi: true,
-      deps: [CookieService, AuthenticationService]
-    }
-  ],
-  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class SharedModule {}

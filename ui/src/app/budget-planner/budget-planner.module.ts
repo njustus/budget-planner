@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material';
 import { AuthenticationInterceptor } from '../authentication.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BudgetComponent } from './budget/budget.component';
+import { SharedModule } from '../shared/shared.module';
 
 const routes: Route[] = [
   {
@@ -43,9 +44,7 @@ export class BudgetPlannerRoutingModule {}
   imports: [
     BudgetPlannerRoutingModule,
     CommonModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatListModule
+    SharedModule
   ],
   providers: [
     {
