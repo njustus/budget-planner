@@ -12,35 +12,14 @@ import { AuthenticationInterceptor } from '../authentication.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BudgetComponent } from './budget/budget.component';
 import { SharedModule } from '../shared/shared.module';
-
-const routes: Route[] = [
-  {
-    path: 'budget-planner',
-    component: BudgetPlannerComponent,
-    children: [
-      {
-        path: '',
-        component: DashboardComponent
-      },
-      {
-        path: 'budget/:budgetId',
-        component: BudgetComponent
-      }
-    ]
-  }
-]
+import { BudgetPlannerRoutingModule } from './budget-planner-routing.module';
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes),
+  declarations: [
+    BudgetPlannerComponent,
+    BudgetComponent,
+    DashboardComponent
   ],
-  exports: [RouterModule],
-  declarations: [BudgetComponent]
-})
-export class BudgetPlannerRoutingModule {}
-
-@NgModule({
-  declarations: [BudgetPlannerComponent, DashboardComponent],
   imports: [
     BudgetPlannerRoutingModule,
     CommonModule,

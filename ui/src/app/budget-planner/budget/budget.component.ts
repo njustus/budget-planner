@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BudgetService } from '../budget.service';
-import { Budget } from 'src/app/models';
+import { Budget, Account } from 'src/app/models';
 
 @Component({
   selector: 'app-budget',
@@ -9,6 +9,8 @@ import { Budget } from 'src/app/models';
   styleUrls: ['./budget.component.scss']
 })
 export class BudgetComponent implements OnInit {
+
+  public static readonly syntheticAllAccount: Account = { name: 'Total', _id: '-total-' }
 
   private readonly budgetId: string
   public budget?: Budget
@@ -25,4 +27,7 @@ export class BudgetComponent implements OnInit {
     })
   }
 
+  get accounts(): Account[] {
+    return (this.budget) ? [BudgetComponent.syntheticAllAccount, ...this.budget.accounts] : [];
+  }
 }

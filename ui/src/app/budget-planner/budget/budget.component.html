@@ -1,6 +1,8 @@
-<p>budget works!</p>
-
-<div ngIf="!!budget">
-  {{budget.name}}
-  {{budget.description}}
-</div>
+<mat-tab-group  mat-align-tabs="center" *ngIf="!!budget">
+  <mat-tab *ngFor="let account of accounts">
+    <ng-template mat-tab-label>
+      <mat-icon>account_balance</mat-icon>
+      {{account.name}}
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
