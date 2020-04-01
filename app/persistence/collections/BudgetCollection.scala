@@ -3,6 +3,7 @@ package persistence.collections
 import javax.inject.{Inject, Singleton}
 import persistence.models.Budget
 import play.modules.reactivemongo.ReactiveMongoApi
+import reactivemongo.api.{Collection, DB, DefaultDB}
 import reactivemongo.api.bson._
 import reactivemongo.api.bson.collection.BSONCollection
 
@@ -14,5 +15,9 @@ class BudgetCollection @Inject()(mongo: ReactiveMongoApi)(override implicit val 
 
   override implicit def handler: BSONDocumentHandler[Budget] = BSONSerializer.budgetHandler
 
-  override def collection: Future[BSONCollection] = mongo.database.map(_.collection("budgets"))
+  override def collection: Future[BSONCollection] = mongo.database.map(_.collection(BudgetCollection.collectionName))
+}
+
+object BudgetCollection {
+  val collectionName = "budgets"
 }

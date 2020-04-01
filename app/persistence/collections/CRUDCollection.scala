@@ -22,7 +22,12 @@ trait CRUDCollection[Entity <: BaseEntity] {
   }
 
   def findById(id: String): Future[Option[Entity]] = collection.flatMap{ c =>
-    c.find(BSONDocument("_id" -> BSONObjectID.parse(id).get), None)
+    c.find(CRUDCollection.byIdSelector(id), None)
       .one[Entity]
   }
+}
+
+object CRUDCollection {
+  def byIdSelector(id: BSONObjectID): BSONDocument = BSONDocument("_id" -> id)
+  def byIdSelector(id: String): BSONDocument = byIdSelector(BSONObjectID.parse(id).get)
 }
