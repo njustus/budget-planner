@@ -19,11 +19,12 @@ export class EditPaymentDialogComponent implements OnInit {
   selectedAccount: Account = this.accounts[1]
 
   constructor() {
+    const todayStr = new Date().toISOString().substring(0,10)
     this.paymentForm  = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl(''),
       amount: new FormControl('', [Validators.required]),
-      date: new FormControl(new Date(), [Validators.required]),
+      date: new FormControl(todayStr, [Validators.required]),
       _accountId: new FormControl(this.selectedAccount._id, [Validators.required]),
     })
   }
