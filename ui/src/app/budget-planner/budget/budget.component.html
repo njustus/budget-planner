@@ -5,9 +5,8 @@
       {{account.name}}
     </ng-template>
 
-    <div>
-      <h1>{{account.name}}</h1>
-      <h2 [ngClass]="{'positive-currency-text': account.totalAmount>=0, 'negative-currency-text': account.totalAmount<0}">{{account.totalAmount | currency: '€'}}</h2>
+    <div fxLayout="row" fxLayoutAlign="center">
+      <h1 class="mat-display-2" [ngClass]="{'positive-currency-text': account.totalAmount>=0, 'negative-currency-text': account.totalAmount<0}">{{account.totalAmount | currency: '€'}}</h1>
     </div>
 
     <div>
