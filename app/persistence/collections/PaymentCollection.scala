@@ -1,10 +1,10 @@
 package persistence.collections
 
 import javax.inject.{Inject, Singleton}
-import persistence.models.{Budget, Payment}
+import persistence.models.Payment
 import play.api.Logging
 import play.modules.reactivemongo.ReactiveMongoApi
-import reactivemongo.api.{Collection, Cursor, DB, DefaultDB, QueryOpts}
+import reactivemongo.api.Cursor
 import reactivemongo.api.bson.{BSONDocument, BSONDocumentHandler, BSONObjectID}
 import reactivemongo.api.bson.collection.BSONCollection
 
@@ -18,6 +18,8 @@ class PaymentCollection @Inject()(mongo: ReactiveMongoApi)(override implicit val
 
   override def collection: Future[BSONCollection] = mongo.database.map(_.collection(PaymentCollection.collectionName))
 
+  override def sortOrder: Option[BSONDocument] = Some(BSONSerializer.orderByDESC("date"))
+
   override def create(entity: Payment): Future[Payment] = {
     val accountSelector = BSONDocument("accounts._id" -> entity._accountId)
     val updateStm = BSONDocument( "$inc" -> BSONDocument("accounts.$.totalAmount" -> entity.amount) )
@@ -28,13 +30,6 @@ class PaymentCollection @Inject()(mongo: ReactiveMongoApi)(override implicit val
       writeResult <- collection.update.one(accountSelector, updateStm)
       _ = logger.debug(s"updated amount result: $writeResult")
     } yield result
-  }
-
-  override def findAll(): Future[Vector[Payment]] = collection.flatMap { c =>
-        c.find(BSONDocument.empty, None)
-      .sort(BSONSerializer.orderByDESC("date"))
-      .cursor[Payment]()
-      .collect[Vector](maxDocs = -1, err = Cursor.FailOnError[Vector[Payment]]())
   }
 
   def findByAccount(accountId: BSONObjectID): Future[Vector[Payment]] = {
