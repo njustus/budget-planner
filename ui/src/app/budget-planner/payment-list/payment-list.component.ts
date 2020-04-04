@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AccountService } from '../account.service';
 import {Account, Payment} from '../../models'
+import { formatCurrency } from '@angular/common';
 
 @Component({
   selector: 'app-payment-list',

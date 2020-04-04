@@ -41,7 +41,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AuthenticationService, securityInterceptor } from './authentication.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({

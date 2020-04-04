@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BudgetService } from '../budget.service';
 import { Budget, Account } from 'src/app/models';
+import { flatMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-budget',
@@ -12,16 +13,16 @@ export class BudgetComponent implements OnInit {
 
   public static readonly syntheticAllAccount: Account = { name: 'Total', _id: '-total-', totalAmount: 0.0 }
 
-  private readonly budgetId: string
   public budget?: Budget
 
   constructor(private readonly route: ActivatedRoute,
-              private readonly budgetSvc: BudgetService) {
-    this.budgetId = route.snapshot.paramMap.get('budgetId')
-  }
+              private readonly budgetSvc: BudgetService) {}
 
   ngOnInit() {
-    this.budgetSvc.findById(this.budgetId).subscribe(b => {
+    this.route.paramMap.pipe(
+      map(params => params.get('budgetId')),
+      flatMap(budgetId => this.budgetSvc.findById(budgetId))
+    ).subscribe(b => {
       this.budget = b
       console.log("budget: ", this.budget)
     })

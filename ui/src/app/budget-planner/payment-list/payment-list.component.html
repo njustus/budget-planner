@@ -5,7 +5,7 @@
       <mat-panel-description class="payment-item_header">
         <div>{{payment.date | date: 'mediumDate'}}</div>
         <div>{{payment.name}}</div>
-        <div [ngClass]="{'payment-item_header-positive': payment.amount>=0, 'payment-item_header-negative': payment.amount<0}">{{payment.amount}}</div>
+        <div [ngClass]="{'positive-currency-text': payment.amount>=0, 'negative-currency-text': payment.amount<0}">{{payment.amount | currency: '€'}}</div>
       </mat-panel-description>
     </mat-expansion-panel-header>
 
