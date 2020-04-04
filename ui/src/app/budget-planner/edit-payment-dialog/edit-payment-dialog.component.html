@@ -1,38 +1,41 @@
-<form fxLayout="column" [formGroup]="paymentForm">
-  <mat-form-field>
-    <mat-label>Name</mat-label>
-    <input matInput formControlName="name">
-  </mat-form-field>
+<h1 mat-dialog-header>Add/Edit Payment</h1>
 
-  <mat-form-field>
-    <mat-label>Description</mat-label>
-    <input matInput formControlName="description">
-  </mat-form-field>
+<div mat-dialog-content>
+  <form fxLayout="column" [formGroup]="paymentForm">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Amount</mat-label>
-    <input matInput placeholder="128,90" formControlName="amount">
-    <mat-icon matSuffix>euro</mat-icon>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Date</mat-label>
-    <input matInput type="date" formControlName="date">
-    <mat-icon matSuffix>event</mat-icon>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Amount</mat-label>
+      <input matInput placeholder="128,90" formControlName="amount">
+      <mat-icon matSuffix>euro</mat-icon>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Account</mat-label>
-    <mat-select  formControlName="_accountId">
-      <mat-option *ngFor="let acc of accounts" [value]="acc._id">
-        {{acc.name}}
-      </mat-option>
-    </mat-select>
-    <mat-icon matSuffix>account_balance</mat-icon>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput type="date" formControlName="date">
+      <mat-icon matSuffix>event</mat-icon>
+    </mat-form-field>
 
-  <div fxLayout="row" fxLayoutAlign="end">
-    <button mat-raised-button color="primary" (click)="onSubmit()">OK</button>
-    <button mat-raised-button color="warn">Reset</button>
-  </div>
+    <mat-form-field>
+      <mat-label>Account</mat-label>
+      <mat-select  formControlName="_accountId">
+        <mat-option *ngFor="let acc of accounts" [value]="acc._id">
+          {{acc.name}}
+        </mat-option>
+      </mat-select>
+      <mat-icon matSuffix>account_balance</mat-icon>
+    </mat-form-field>
 </form>
+</div>
+<div fxLayout="row" fxLayoutAlign="end" mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onSubmit()">OK</button>
+  <button mat-raised-button color="warn">Reset</button>
+</div>
