@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { LandingComponent } from './landing/landing.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import {CookieService} from 'ngx-cookie-service';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -56,7 +57,8 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     CommonModule,
     SharedModule,
-    BudgetPlannerModule
+    BudgetPlannerModule,
+    ReactiveFormsModule
   ],
   providers: [
     CookieService,

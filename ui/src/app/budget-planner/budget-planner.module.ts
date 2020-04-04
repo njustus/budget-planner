@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BudgetPlannerComponent } from './budget-planner.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule, Route } from '@angular/router';
@@ -14,18 +15,21 @@ import { BudgetComponent } from './budget/budget.component';
 import { SharedModule } from '../shared/shared.module';
 import { BudgetPlannerRoutingModule } from './budget-planner-routing.module';
 import { PaymentListComponent } from './payment-list/payment-list.component';
+import { EditPaymentDialogComponent } from './edit-payment-dialog/edit-payment-dialog.component';
 
 @NgModule({
   declarations: [
     BudgetPlannerComponent,
     BudgetComponent,
     DashboardComponent,
-    PaymentListComponent
+    PaymentListComponent,
+    EditPaymentDialogComponent
   ],
   imports: [
     BudgetPlannerRoutingModule,
     CommonModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
