@@ -1,5 +1,5 @@
 {
-  "/finance-manager": {
+  "/api/v1/budget-planner": {
     "secure": false,
     "target": "http://localhost:8080"
   },

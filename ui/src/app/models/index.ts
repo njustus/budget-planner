@@ -1,6 +1,7 @@
 export interface Account {
   name: string
   _id: string
+  totalAmount: number
 }
 
 export interface Budget {

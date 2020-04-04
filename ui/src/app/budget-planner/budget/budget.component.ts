@@ -10,7 +10,7 @@ import { Budget, Account } from 'src/app/models';
 })
 export class BudgetComponent implements OnInit {
 
-  public static readonly syntheticAllAccount: Account = { name: 'Total', _id: '-total-' }
+  public static readonly syntheticAllAccount: Account = { name: 'Total', _id: '-total-', totalAmount: 0.0 }
 
   private readonly budgetId: string
   public budget?: Budget

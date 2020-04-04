@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Payment } from '../models';
 import { budgetPrefix } from './budget.service';
 
-const accountPrefix = "/finance-manager/accounts/"
+const accountPrefix = "/api/v1/budget-planner/accounts/"
 
 @Injectable({
   providedIn: 'root'

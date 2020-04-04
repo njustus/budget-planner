@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Budget } from '../models';
 
-export const budgetPrefix = "/finance-manager/budgets"
+export const budgetPrefix = "/api/v1/budget-planner/budgets"
 
 @Injectable({
   providedIn: 'root'

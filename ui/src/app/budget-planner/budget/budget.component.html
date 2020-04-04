@@ -4,6 +4,12 @@
       <mat-icon>account_balance</mat-icon>
       {{account.name}}
     </ng-template>
+
+    <div>
+      <h1>{{account.name}}</h1>
+      <h2>{{account.totalAmount}}</h2>
+    </div>
+
     <div>
       <app-payment-list [account]="account"></app-payment-list>
     </div>

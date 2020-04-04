@@ -14,7 +14,7 @@ const routes: Routes = [
         component: DashboardComponent
       },
       {
-        path: 'budget/:budgetId',
+        path: 'budgets/:budgetId',
         component: BudgetComponent
       }
     ]
