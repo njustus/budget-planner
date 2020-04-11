@@ -7,11 +7,11 @@
 
     <span fxFlex="1 1 auto"></span>
 
-    <button mat-button color="accent" (click)="addPaymentDialog()">
+    <button mat-button color="accent" [disabled]="!focusedBudget" (click)="addPaymentDialog()">
       <mat-icon>add_circle</mat-icon>
       Payment
     </button>
-    <button mat-button color="basic">
+    <button mat-button color="basic"  [disabled]="!focusedBudget">
       <mat-icon>person_add</mat-icon>
       Invide
     </button>
