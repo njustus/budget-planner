@@ -1,4 +1,4 @@
-<mat-tab-group  mat-align-tabs="center" *ngIf="!!budget">
+<mat-tab-group  mat-align-tabs="center" (selectedTabChange)="onTabChange($event)" *ngIf="!!budget">
   <mat-tab *ngFor="let account of accounts">
     <ng-template mat-tab-label>
       <mat-icon>account_balance</mat-icon>
