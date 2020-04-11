@@ -1,0 +1,172 @@
+openapi: 3.0.0
+info:
+  title: Budget Planner API
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/api/v1/budget-planner
+    description: Development server
+  - url: http://localhost:4200/api/v1/budget-planner
+    description: Angular Development proxy server
+
+paths:
+  /accounts/{accountId}/payments:
+    get:
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+        '404':
+          description: account with _id=accountId not found!
+
+  /budgets:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Budget'
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Budget'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+  /budgets/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+        '404':
+          description: budget with _id=id not found!
+        
+
+  /payments:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+  /payments/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '404':
+          description: payment with _id=id not found!
+
+components:
+  schemas:
+    Account:
+      properties:
+        name:
+          type: string
+        totalAmount:
+          type: number
+          format: float
+        _id:
+          format: uuid
+          type: string
+    Budget:
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        investors:
+          type: array
+          items:
+            type: string
+        owner:
+          type: string
+        _id:
+          format: uuid
+          type: string
+    Payment:
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        amount:
+          format: float
+          type: number
+        date:
+          format: date
+          type: string
+        owner:
+          type: string
+        _accountId:
+          format: uuid
+          type: string
+        _id:
+          format: uuid
+          type: string
