@@ -4,7 +4,6 @@ import { Budget, Account } from 'src/app/models';
 import { flatMap, map } from 'rxjs/operators';
 import { BudgetPlannerService } from '../budget-planner.service';
 import { MatTabChangeEvent } from '@angular/material';
-import { ApiService } from 'src/app/app.module';
 import { DefaultService } from 'generated-src';
 
 @Component({

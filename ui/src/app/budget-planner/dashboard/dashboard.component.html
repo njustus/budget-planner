@@ -1,1 +1,18 @@
-<p>dashboard works!</p>
+
+<div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2.5em">
+    <mat-card *ngFor="let budget of budgets" width="300px">
+        <mat-card-header>
+            <mat-card-title>{{budget.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p>{{budget.description}}</p>
+
+            <small>{{budget.owner}}</small>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="stretch">
+            <a mat-raised-button fxFlex="40%" color="primary" [routerLink]="['budgets', budget._id]">Open</a>
+            <button mat-raised-button  fxFlex="30%" disabled="true">Edit</button>
+            <button mat-raised-button  fxFlex="30%" disabled="true" color="warn">Delete</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

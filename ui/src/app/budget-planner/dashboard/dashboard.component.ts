@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DefaultService, Budget } from 'generated-src';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  public budgets: Budget[]
+
+  constructor(private readonly apiSvc: DefaultService) { }
 
   ngOnInit() {
+    this.apiSvc.findBudgets().subscribe(xs => this.budgets = xs)
   }
 
 }

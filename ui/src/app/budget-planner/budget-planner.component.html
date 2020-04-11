@@ -23,7 +23,7 @@
     <mat-nav-list>
       <mat-list-item>Dashboard</mat-list-item>
       <div mat-subheader>Budgets</div>
-        <a mat-list-item href="#">All</a>
+        <a mat-list-item href="['']">All</a>
         <a mat-list-item [routerLink]="['budgets', budget._id]" *ngFor="let budget of budgets">{{budget.name}}</a>
     </mat-nav-list>
   </mat-sidenav>
