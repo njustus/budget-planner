@@ -11,6 +11,7 @@ servers:
 paths:
   /accounts/{accountId}/payments:
     get:
+      operationId: findAccountPayments
       parameters:
         - name: accountId
           in: path
@@ -32,6 +33,7 @@ paths:
 
   /budgets:
     get:
+      operationId: findBudgets
       responses:
         '200':
           description: OK
@@ -42,6 +44,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Budget'
     post:
+      operationId: createBudget
       requestBody:
         required: true
         content:
@@ -57,6 +60,7 @@ paths:
                 $ref: '#/components/schemas/Budget'
   /budgets/{id}:
     get:
+      operationId: findBudget
       parameters:
         - name: id
           in: path
@@ -77,6 +81,7 @@ paths:
 
   /payments:
     get:
+      operationId: findPayments
       responses:
         '200':
           description: OK
@@ -87,6 +92,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Payment'
     post:
+      operationId: createPayment
       requestBody:
         required: true
         content:
@@ -102,6 +108,7 @@ paths:
                 $ref: '#/components/schemas/Payment'
   /payments/{id}:
     get:
+      operationId: findPayment
       parameters:
         - name: id
           in: path
