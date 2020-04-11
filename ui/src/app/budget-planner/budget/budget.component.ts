@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BudgetService } from '../budget.service';
 import { Budget, Account } from 'src/app/models';
 import { flatMap, map } from 'rxjs/operators';
 import { BudgetPlannerService } from '../budget-planner.service';
 import { MatTabChangeEvent } from '@angular/material';
+import { ApiService } from 'src/app/app.module';
+import { DefaultService } from 'generated-src';
 
 @Component({
   selector: 'app-budget',
@@ -19,12 +20,12 @@ export class BudgetComponent implements OnInit {
 
   constructor(private readonly route: ActivatedRoute,
               private readonly budgetPlannerSvc: BudgetPlannerService,
-              private readonly budgetSvc: BudgetService) {}
+              private readonly apiSvc: DefaultService) {}
 
   ngOnInit() {
     this.route.paramMap.pipe(
       map(params => params.get('budgetId')),
-      flatMap(budgetId => this.budgetSvc.findById(budgetId))
+      flatMap(budgetId => this.apiSvc.findBudget(budgetId))
     ).subscribe(b => {
       this.budget = b
       this.budgetPlannerSvc.updateFocusedBudget(b)

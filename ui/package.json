@@ -4,10 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm run generate && ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "generate": "openapi-generator generate -i ../doc/openapi.yml -g typescript-angular -apiModulePrefix BudgetPlannerAPI  -o ./generated-src"
   },
   "private": true,
   "dependencies": {
@@ -33,9 +34,10 @@
     "@angular/cli": "~8.3.6",
     "@angular/compiler-cli": "~8.2.8",
     "@angular/language-service": "~8.2.8",
-    "@types/node": "~8.9.4",
+    "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",

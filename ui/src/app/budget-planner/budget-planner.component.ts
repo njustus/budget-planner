@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Budget, Account} from '../models'
-import { BudgetService } from './budget.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { EditPaymentDialogComponent } from './edit-payment-dialog/edit-payment-dialog.component';
 import { BudgetPlannerService } from './budget-planner.service';
+import { DefaultService } from 'generated-src';
 
 @Component({
   selector: 'app-budget-planner',
@@ -17,14 +17,14 @@ export class BudgetPlannerComponent implements OnInit {
   focusedBudget: Budget | undefined = undefined
   focusedAccount: Account | undefined = undefined
 
-  constructor(private readonly budgetSvc: BudgetService,
+  constructor(private readonly apiSvc: DefaultService,
               private readonly budgetPlannerSvc: BudgetPlannerService,
               private readonly dialog: MatDialog) { }
 
   ngOnInit() {
     this.budgetPlannerSvc.focusedBudget$.subscribe(b => this.focusedBudget = b)
     this.budgetPlannerSvc.focusedAccount$.subscribe(a => this.focusedAccount = a)
-    this.budgetSvc.findAll().subscribe(xs => this.budgets = xs)
+    this.apiSvc.findBudgets().subscribe(xs => this.budgets = xs)
   }
 
   addPaymentDialog(): void {

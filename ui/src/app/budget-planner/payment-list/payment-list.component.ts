@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AccountService } from '../account.service';
 import {Account, Payment} from '../../models'
 import { formatCurrency } from '@angular/common';
+import { DefaultService } from 'generated-src';
 
 @Component({
   selector: 'app-payment-list',
@@ -14,10 +14,10 @@ export class PaymentListComponent implements OnInit {
 
   public payments?: Payment[]
 
-  constructor(private readonly accountSvc: AccountService) { }
+  constructor(private readonly apiSvc: DefaultService) { }
 
   ngOnInit() {
-    this.accountSvc.findPayments(this.account._id).subscribe(xs => this.payments = xs)
+    this.apiSvc.findAccountPayments(this.account._id).subscribe(xs => this.payments = xs)
   }
 
 }

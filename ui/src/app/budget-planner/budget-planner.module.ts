@@ -28,7 +28,7 @@ import { EditPaymentDialogComponent } from './edit-payment-dialog/edit-payment-d
     BudgetPlannerRoutingModule,
     CommonModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     {
