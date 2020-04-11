@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Account, Payment} from '../../models'
+import {Account, Payment, Budget} from '../../models'
 import { formatCurrency } from '@angular/common';
 import { DefaultService } from 'generated-src';
+import { MatDialog } from '@angular/material';
+import { EditPaymentDialogComponent } from '../edit-payment-dialog/edit-payment-dialog.component';
 
 @Component({
   selector: 'app-payment-list',
@@ -11,13 +13,25 @@ import { DefaultService } from 'generated-src';
 export class PaymentListComponent implements OnInit {
 
   @Input() public account: Account
+  @Input() public budget: Budget
 
   public payments?: Payment[]
 
-  constructor(private readonly apiSvc: DefaultService) { }
+  constructor(private readonly apiSvc: DefaultService,
+    private readonly dialog: MatDialog) { }
 
   ngOnInit() {
     this.apiSvc.findAccountPayments(this.account._id).subscribe(xs => this.payments = xs)
   }
 
+  editPayment(payment:Payment) {
+    const dialogRef = this.dialog.open(EditPaymentDialogComponent, {
+      width: '80%',
+      data: { accounts: this.budget.accounts, focusedAccount: this.account, editingPayment: payment }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed: ', result);
+    });    
+  }
 }

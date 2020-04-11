@@ -9,7 +9,10 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    {{payment.description}}
+    <p>{{payment.description}}</p>
+    <mat-action-row>
+      <button mat-flat-button color="warn" (click)="editPayment(payment)">Edit</button>
+    </mat-action-row>
   </mat-expansion-panel>
 
 </mat-accordion>

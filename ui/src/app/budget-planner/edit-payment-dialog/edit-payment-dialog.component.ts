@@ -7,6 +7,7 @@ import { DefaultService } from 'generated-src';
 interface PaymentDialogParams {
   accounts: Account[]
   focusedAccount?: Account
+  editingPayment?: Payment
 }
 
 @Component({
@@ -30,12 +31,19 @@ export class EditPaymentDialogComponent implements OnInit {
       date: new FormControl(todayStr, [Validators.required]),
       _accountId: new FormControl(data.focusedAccount ? data.focusedAccount._id : undefined, [Validators.required]),
     })
+
+    if(data.editingPayment) {
+      delete data.editingPayment.owner
+      delete data.editingPayment._id
+      this.paymentForm.setValue(data.editingPayment)
+    }
   }
 
   ngOnInit() {
   }
 
   onSubmit() {
+    //TODO: update the original entity if editingPayment is set
     const input = this.paymentForm.value;
     const payment = { ...input, amount: parseFloat(input.amount) }
     this.apiSvc.createPayment(payment).subscribe(p => {
