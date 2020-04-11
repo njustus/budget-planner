@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {Account, Payment} from '../../models'
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DefaultService } from 'generated-src';
 
 interface PaymentDialogParams {
@@ -18,7 +18,9 @@ export class EditPaymentDialogComponent implements OnInit {
 
   paymentForm: FormGroup;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public readonly data: PaymentDialogParams,
+  constructor(
+    private readonly dialogRef: MatDialogRef<EditPaymentDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public readonly data: PaymentDialogParams,
               private readonly apiSvc: DefaultService) {
     const todayStr = new Date().toISOString().substring(0,10)
     this.paymentForm  = new FormGroup({
@@ -36,6 +38,9 @@ export class EditPaymentDialogComponent implements OnInit {
   onSubmit() {
     const input = this.paymentForm.value;
     const payment = { ...input, amount: parseFloat(input.amount) }
-    this.apiSvc.createPayment(payment).subscribe(p => console.log("payment created: ", p))
+    this.apiSvc.createPayment(payment).subscribe(p => {
+      console.log("payment created: ", p)
+      this.dialogRef.close(p)
+    })
   }
 }
