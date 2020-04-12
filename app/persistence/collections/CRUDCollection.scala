@@ -17,7 +17,8 @@ trait CRUDCollection[Entity <: BaseEntity] {
   def create(entity:Entity): Future[Entity] = collection.flatMap(c => c.insert.one(entity)).map(_ => entity)
 
   def update(id: String, entity: Entity): Future[Entity] = collection.flatMap { c =>
-    c.update(true).one(CRUDCollection.byIdSelector(id), entity).map(_ => entity)
+    val modifier = BSONDocument("$set" -> entity)
+    c.update(true).one(CRUDCollection.byIdSelector(id), modifier).map(_ => entity)
   }
 
   def findAll(): Future[Vector[Entity]] = collection.flatMap { c =>
