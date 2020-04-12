@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "generate": "openapi-generator generate -i ../doc/openapi.yml -g typescript-angular -apiModulePrefix BudgetPlannerAPI  -o ./generated-src"
+    "generate": "openapi-generator generate -i ../doc/openapi.yml -g typescript-angular  -o ./generated-src"
   },
   "private": true,
   "dependencies": {
