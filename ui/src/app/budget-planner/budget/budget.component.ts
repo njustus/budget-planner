@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Budget, Account } from 'src/app/models';
 import { flatMap, map } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { DefaultService } from 'generated-src';
   templateUrl: './budget.component.html',
   styleUrls: ['./budget.component.scss']
 })
-export class BudgetComponent implements OnInit {
+export class BudgetComponent implements OnInit, OnDestroy {
 
   public static readonly syntheticAllAccount: Account = { name: 'Total', _id: '-total-', totalAmount: 0.0 }
 
@@ -31,6 +31,13 @@ export class BudgetComponent implements OnInit {
       this.budgetPlannerSvc.updateFocusedAccount(b.accounts[0])
       console.log("budget: ", this.budget)
     })
+  }
+
+  ngOnDestroy(): void {
+
+    console.log("destroyed")
+    this.budgetPlannerSvc.updateFocusedBudget(undefined)
+    this.budgetPlannerSvc.updateFocusedAccount(undefined)
   }
 
   get accounts(): Account[] {

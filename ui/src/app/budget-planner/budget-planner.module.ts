@@ -15,6 +15,7 @@ import { SharedModule } from '../shared/shared.module';
 import { BudgetPlannerRoutingModule } from './budget-planner-routing.module';
 import { PaymentListComponent } from './payment-list/payment-list.component';
 import { EditPaymentDialogComponent } from './edit-payment-dialog/edit-payment-dialog.component';
+import { EditBudgetDialogComponent } from './edit-budget-dialog/edit-budget-dialog.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { EditPaymentDialogComponent } from './edit-payment-dialog/edit-payment-d
     BudgetComponent,
     DashboardComponent,
     PaymentListComponent,
-    EditPaymentDialogComponent
+    EditPaymentDialogComponent,
+    EditBudgetDialogComponent
   ],
   imports: [
     BudgetPlannerRoutingModule,
@@ -36,6 +38,10 @@ import { EditPaymentDialogComponent } from './edit-payment-dialog/edit-payment-d
       useClass: AuthenticationInterceptor,
       multi: true
     }
+  ],
+  entryComponents: [
+    EditPaymentDialogComponent,
+    EditBudgetDialogComponent
   ]
 })
 export class BudgetPlannerModule { }

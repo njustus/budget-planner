@@ -4,6 +4,10 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { EditPaymentDialogComponent } from './edit-payment-dialog/edit-payment-dialog.component';
 import { BudgetPlannerService } from './budget-planner.service';
 import { DefaultService } from 'generated-src';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { EditBudgetDialogComponent } from './edit-budget-dialog/edit-budget-dialog.component';
 
 @Component({
   selector: 'app-budget-planner',
@@ -19,7 +23,7 @@ export class BudgetPlannerComponent implements OnInit {
 
   constructor(private readonly apiSvc: DefaultService,
               private readonly budgetPlannerSvc: BudgetPlannerService,
-              private readonly dialog: MatDialog) { }
+              private readonly dialog: MatDialog) {}
 
   ngOnInit() {
     this.budgetPlannerSvc.focusedBudget$.subscribe(b => this.focusedBudget = b)
@@ -40,4 +44,10 @@ export class BudgetPlannerComponent implements OnInit {
     });
   }
 
+  addBudgetDialog(): void {
+    const dialogRef = this.dialog.open(EditBudgetDialogComponent, {
+      width: '80%'
+    });
+    dialogRef.afterClosed().subscribe(result => window.location.reload())
+  }
 }
