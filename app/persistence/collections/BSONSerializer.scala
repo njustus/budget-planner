@@ -9,6 +9,8 @@ trait BSONSerializer {
   implicit val accountHandler: BSONDocumentHandler[Account] = Macros.handler[Account]
 
   implicit val budgetHandler: BSONDocumentHandler[Budget] = Macros.handler[Budget]
+
+  implicit val authUserHandler: BSONDocumentHandler[AuthUser] = Macros.handler[AuthUser]
 }
 
 object BSONSerializer extends BSONSerializer {

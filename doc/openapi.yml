@@ -149,6 +149,19 @@ paths:
         '204':
           description: entity deleted
 
+  /users:
+    get:
+      operationId: findUsers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuthUser'
+
 components:
   schemas:
     Account:
@@ -200,3 +213,15 @@ components:
         _id:
           format: uuid
           type: string
+    AuthUser:
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+      required:
+        - username
