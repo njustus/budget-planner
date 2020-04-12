@@ -58,6 +58,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Budget'
+
   /budgets/{id}:
     get:
       operationId: findBudget
@@ -90,6 +91,30 @@ paths:
         '204':
           description: entity deleted
 
+  /budgets/{id}/investors:
+    post:
+      operationId: addInvestor
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Investor'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+
   /payments:
     get:
       operationId: findPayments
@@ -117,6 +142,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Payment'
+
   /payments/{id}:
     get:
       operationId: findPayment
@@ -222,6 +248,12 @@ components:
         first_name:
           type: string
         last_name:
+          type: string
+      required:
+        - username
+    Investor:
+      properties:
+        username:
           type: string
       required:
         - username

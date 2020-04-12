@@ -29,4 +29,6 @@ POST    /budgets                     controllers.BudgetController.create
 GET     /budgets/:id                 controllers.BudgetController.findById(id: String)
 DELETE  /budgets/:id                 controllers.BudgetController.deleteById(id: String)
 
+POST    /budgets/:id/investors       controllers.BudgetController.addInvestor(id: String)
+
 GET     /users                      controllers.UserController.findAll
