@@ -16,4 +16,10 @@ export class DashboardComponent implements OnInit {
     this.apiSvc.findBudgets().subscribe(xs => this.budgets = xs)
   }
 
+  deleteBudget(budget: Budget) {
+    this.apiSvc.deleteBudget(budget._id).subscribe(() => {
+      this.budgets = this.budgets.filter(b => b!==budget)
+    })
+  }
+
 }
