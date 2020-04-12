@@ -32,6 +32,8 @@ class PaymentCollection @Inject()(mongo: ReactiveMongoApi)(override implicit val
     } yield result
   }
 
+  override def update(id: String, entity: Payment): Future[Payment] = throw new NotImplementedError("totalAmount update must be handled!")
+
   def findByAccount(accountId: BSONObjectID): Future[Vector[Payment]] = {
     val query = BSONDocument("_accountId" -> accountId)
     collection.flatMap { c =>

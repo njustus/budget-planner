@@ -77,7 +77,18 @@ paths:
                 $ref: '#/components/schemas/Budget'
         '404':
           description: budget with _id=id not found!
-        
+    delete:
+      operationId: deleteBudget
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: entity deleted
 
   /payments:
     get:
@@ -125,6 +136,18 @@ paths:
                 $ref: '#/components/schemas/Payment'
         '404':
           description: payment with _id=id not found!
+    delete:
+      operationId: deletePayment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: entity deleted
 
 components:
   schemas:

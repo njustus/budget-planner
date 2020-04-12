@@ -26,7 +26,7 @@ abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.c
       }
     }
 
-  def findById(id:String) = withUser { user =>
+  def findById(id: String) = withUser { user =>
     Action.async { implicit request =>
       logger.info(s"searching for id:$id")
       persistence.findById(id).map {
@@ -51,15 +51,12 @@ abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.c
     }
   }
 
-  /*
-  def deleteById(id: Long) = withUser { user =>
+  def deleteById(id: String) = withUser { user =>
     Action.async { implicit request =>
       logger.info(s"deleting id: $id")
       persistence.deleteById(id).map(_ => NoContent)
     }
   }
-
- */
 
   def createRequestEntity(user:AuthUser, e:Entity): Entity = e
 }

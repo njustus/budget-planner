@@ -16,6 +16,10 @@ trait CRUDCollection[Entity <: BaseEntity] {
 
   def create(entity:Entity): Future[Entity] = collection.flatMap(c => c.insert.one(entity)).map(_ => entity)
 
+  def update(id: String, entity: Entity): Future[Entity] = collection.flatMap { c =>
+    c.update(true).one(CRUDCollection.byIdSelector(id), entity).map(_ => entity)
+  }
+
   def findAll(): Future[Vector[Entity]] = collection.flatMap { c =>
     val findQuery = sortOrder match {
       case Some(sortOrder) => c.find(BSONDocument.empty, None).sort(sortOrder)
@@ -27,9 +31,13 @@ trait CRUDCollection[Entity <: BaseEntity] {
       .collect[Vector](maxDocs = -1, err = Cursor.FailOnError[Vector[Entity]]())
   }
 
-  def findById(id: String): Future[Option[Entity]] = collection.flatMap{ c =>
+  def findById(id: String): Future[Option[Entity]] = collection.flatMap { c =>
     c.find(CRUDCollection.byIdSelector(id), None)
       .one[Entity]
+  }
+
+  def deleteById(id: String): Future[Unit] = collection.flatMap { c =>
+    c.delete().one(CRUDCollection.byIdSelector(id)).map(_ => ())
   }
 }
 
