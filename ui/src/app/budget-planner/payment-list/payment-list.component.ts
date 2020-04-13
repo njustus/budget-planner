@@ -21,7 +21,7 @@ export class PaymentListComponent implements OnInit {
     private readonly dialog: MatDialog) { }
 
   ngOnInit() {
-    this.apiSvc.findAccountPayments(this.account._id).subscribe(xs => this.payments = xs)
+    this.updatePayments()
   }
 
   editPayment(payment:Payment) {
@@ -32,6 +32,15 @@ export class PaymentListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed: ', result);
-    });    
+    });
+  }
+
+  deletePayment(payment: Payment) {
+    this.apiSvc.deletePayment(payment._id).subscribe(() => this.updatePayments())
+  }
+
+  updatePayments() {
+    this.payments = undefined
+    this.apiSvc.findAccountPayments(this.account._id).subscribe(xs => this.payments = xs)
   }
 }
