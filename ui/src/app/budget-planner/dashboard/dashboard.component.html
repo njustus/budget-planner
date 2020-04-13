@@ -11,9 +11,9 @@
         </mat-card-content>
 
         <mat-card-actions fxLayout="row" fxLayoutAlign="stretch">
-            <a mat-raised-button fxFlex="45%" color="primary" [routerLink]="['budgets', budget._id]">Open</a>
-            <button mat-raised-button  fxFlex="calc(55%/2)" disabled="true">Edit</button>
-            <button mat-raised-button  fxFlex="calc(55%/2)" color="warn" (click)="deleteBudget(budget)">Delete</button>
+            <a mat-button fxFlex="45%" color="accent" [routerLink]="['budgets', budget._id]">Open</a>
+            <button mat-button  fxFlex="calc(55%/2)" disabled="true">Edit</button>
+            <button mat-button  fxFlex="calc(55%/2)" color="warn" (click)="deleteBudget(budget)">Delete</button>
         </mat-card-actions>
     </mat-card>
 </div>

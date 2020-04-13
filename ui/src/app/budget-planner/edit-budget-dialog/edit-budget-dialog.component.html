@@ -14,7 +14,9 @@
 
     <div fxLayoutAlign="space-between">
       <h3>Accounts</h3>
-      <button mat-button color="accent" (click)="addAccount()">+</button>
+      <button mat-icon-button color="accent" (click)="addAccount()">
+        <mat-icon>add_circle</mat-icon>
+      </button>
     </div>
 
     <div fxLayoutAlign="space-between" *ngFor="let account of accounts.controls; index as idx">
@@ -22,13 +24,15 @@
         <mat-label>Account {{idx+1}}</mat-label>
         <input matInput [formControl]="account">
       </mat-form-field>
-      <button mat-button color="warn" (click)="removeAccount(idx)">-</button>
+      <button mat-icon-button color="warn" (click)="removeAccount(idx)">
+        <mat-icon>remove_circle</mat-icon>
+      </button>
     </div>
 
     <p *ngIf="accounts.length<=0" style="text-align: center">Kein Account hinzugefügt. Mindestens 1 Account ist erforderlich!</p>
   </form>
 </div>
 <div fxLayout="row" fxLayoutAlign="end" mat-dialog-actions>
-  <button mat-raised-button color="primary" [disabled]="accounts.length<=0" (click)="onSubmit()">OK</button>
-  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-button color="primary" [disabled]="accounts.length<=0" (click)="onSubmit()">OK</button>
+  <button mat-button mat-dialog-close>Cancel</button>
 </div>
