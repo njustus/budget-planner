@@ -24,11 +24,17 @@
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav [fixedInViewport]="false">
-    <mat-nav-list>
+    <mat-nav-list fxLayout="column" fxFlexFill>
       <!-- <mat-list-item>Dashboard</mat-list-item> -->
       <h3 mat-subheader>Budgets</h3>
-        <a mat-list-item [routerLink]="['/budget-planner']">All</a>
-        <a mat-list-item [routerLink]="['budgets', budget._id]" *ngFor="let budget of budgets">{{budget.name}}</a>
+      <a mat-list-item [routerLink]="['/budget-planner']">All</a>
+      <a mat-list-item [routerLink]="['budgets', budget._id]" *ngFor="let budget of budgets">
+        <mat-icon>account_balance_wallet</mat-icon>&nbsp;{{budget.name}}
+      </a>
+      <span fxFlex="1 1 auto"></span>
+      <a mat-list-item href="api/v1/budget-planner/assets/api-ui.html">
+        <mat-icon>code</mat-icon>&nbsp;API
+      </a>
     </mat-nav-list>
   </mat-sidenav>
 
