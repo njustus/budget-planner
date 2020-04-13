@@ -37,7 +37,8 @@ class PaymentCollection @Inject()(mongo: ReactiveMongoApi)(override implicit val
   def findByAccount(accountId: BSONObjectID): Future[Vector[Payment]] = {
     val query = BSONDocument("_accountId" -> accountId)
     collection.flatMap { c =>
-      c.find(query, None)
+      c.find(query)
+        .sort(this.sortOrder.get)
         .cursor[Payment]()
         .collect[Vector](maxDocs = -1, err = Cursor.FailOnError[Vector[Payment]]())
     }
