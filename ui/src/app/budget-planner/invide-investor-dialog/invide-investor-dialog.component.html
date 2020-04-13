@@ -1,0 +1,21 @@
+<p>invide-investor-dialog works!</p>
+<h1 mat-dialog-header>Add collaborator</h1>
+
+<div mat-dialog-content>
+  <p>Add collaborators to this budget.</p>
+  <form fxLayout="column" [formGroup]="investorForm"  *ngIf="!!users">
+    <mat-form-field>
+      <mat-label>Investor/Collaborater</mat-label>
+      <mat-select formControlName="usernames" multiple>
+        <mat-option *ngFor="let user of users" [value]="user.username">
+          {{user.username}} <small>({{user.email}})</small>
+        </mat-option>
+      </mat-select>
+      <mat-icon matSuffix>account_circle</mat-icon>
+    </mat-form-field>
+  </form>
+</div>
+<div fxLayout="row" fxLayoutAlign="end" mat-dialog-actions>
+  <button mat-button color="primary" (click)="onSubmit()">OK</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+</div>

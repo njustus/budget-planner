@@ -3,11 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BudgetPlannerComponent } from './budget-planner.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { RouterModule, Route } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
-import { MatListModule } from '@angular/material';
 import { AuthenticationInterceptor } from '../authentication.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BudgetComponent } from './budget/budget.component';
@@ -16,6 +11,7 @@ import { BudgetPlannerRoutingModule } from './budget-planner-routing.module';
 import { PaymentListComponent } from './payment-list/payment-list.component';
 import { EditPaymentDialogComponent } from './edit-payment-dialog/edit-payment-dialog.component';
 import { EditBudgetDialogComponent } from './edit-budget-dialog/edit-budget-dialog.component';
+import { InvideInvestorDialogComponent } from './invide-investor-dialog/invide-investor-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +20,8 @@ import { EditBudgetDialogComponent } from './edit-budget-dialog/edit-budget-dial
     DashboardComponent,
     PaymentListComponent,
     EditPaymentDialogComponent,
-    EditBudgetDialogComponent
+    EditBudgetDialogComponent,
+    InvideInvestorDialogComponent
   ],
   imports: [
     BudgetPlannerRoutingModule,
@@ -41,7 +38,8 @@ import { EditBudgetDialogComponent } from './edit-budget-dialog/edit-budget-dial
   ],
   entryComponents: [
     EditPaymentDialogComponent,
-    EditBudgetDialogComponent
+    EditBudgetDialogComponent,
+    InvideInvestorDialogComponent
   ]
 })
 export class BudgetPlannerModule { }

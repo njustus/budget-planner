@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, tap, share } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { EditBudgetDialogComponent } from './edit-budget-dialog/edit-budget-dialog.component';
+import { InvideInvestorDialogComponent } from './invide-investor-dialog/invide-investor-dialog.component';
 
 @Component({
   selector: 'app-budget-planner',
@@ -52,5 +53,12 @@ export class BudgetPlannerComponent implements OnInit {
       width: '80%'
     });
     dialogRef.afterClosed().subscribe(result => window.location.reload())
+  }
+
+  addInvestorDialog(): void {
+    const dialogRef = this.dialog.open(InvideInvestorDialogComponent, {
+      width: '80%',
+      data: { budget: this.focusedBudget }
+    });
   }
 }
