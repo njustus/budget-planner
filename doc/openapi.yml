@@ -63,12 +63,7 @@ paths:
     get:
       operationId: findBudget
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/entityId'
       responses:
         '200':
           description: ok
@@ -81,12 +76,7 @@ paths:
     delete:
       operationId: deleteBudget
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/entityId'
       responses:
         '204':
           description: entity deleted
@@ -95,12 +85,7 @@ paths:
     post:
       operationId: addInvestor
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/entityId'
       requestBody:
         required: true
         content:
@@ -147,12 +132,7 @@ paths:
     get:
       operationId: findPayment
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/entityId'
       responses:
         '200':
           description: ok
@@ -165,12 +145,7 @@ paths:
     delete:
       operationId: deletePayment
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/entityId'
       responses:
         '204':
           description: entity deleted
@@ -189,6 +164,15 @@ paths:
                   $ref: '#/components/schemas/AuthUser'
 
 components:
+  parameters:
+    entityId:
+      name: id
+      in: path
+      required: true
+      description: the entity's id.
+      schema:
+        type: string
+        format: uuid
   schemas:
     Account:
       properties:
