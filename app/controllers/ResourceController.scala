@@ -1,14 +1,16 @@
 package controllers
 
 import persistence.models.{AuthUser, BaseEntity}
-import play.api.Logging
+import play.api.{Application, Configuration, Logging}
 import play.api.libs.circe.Circe
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 import io.circe.syntax._
 import persistence.collections.CRUDCollection
 import security.AppSecurity
 
-abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.circe.Decoder](cc: ControllerComponents, persistence:CRUDCollection[Entity])
+abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.circe.Decoder](cc: ControllerComponents,
+                                                                                              appConfig: Configuration,
+                                                                                              persistence:CRUDCollection[Entity])
   extends AbstractController(cc)
   with AppSecurity
   with Circe
@@ -17,9 +19,11 @@ abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.c
 
   implicit val ec = cc.executionContext
 
-    def findAll = withUser { user =>
+  val paginate = Paginate.curried(appConfig.get[Int]("rest.page-size"))
+
+    def findAll(page: Option[Int]) = withUser { user =>
       Action.async { implicit request =>
-        persistence.findAll.map { xs =>
+        persistence.findAll(paginate(page)).map { xs =>
           logger.debug(s"found ${xs.knownSize} entries")
           Ok(xs.asJson)
         }

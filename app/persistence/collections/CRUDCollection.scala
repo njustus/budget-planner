@@ -1,5 +1,6 @@
 package persistence.collections
 
+import controllers.Paginate
 import persistence.models.BaseEntity
 import reactivemongo.api.Cursor
 import reactivemongo.api.bson.BSONDocument
@@ -21,15 +22,16 @@ trait CRUDCollection[Entity <: BaseEntity] {
     c.update(true).one(CRUDCollection.byIdSelector(id), modifier).map(_ => entity)
   }
 
-  def findAll(): Future[Vector[Entity]] = collection.flatMap { c =>
+  def findAll(paginate: Paginate): Future[Vector[Entity]] = collection.flatMap { c =>
     val findQuery = sortOrder match {
       case Some(sortOrder) => c.find(BSONDocument.empty, None).sort(sortOrder)
       case None => c.find(BSONDocument.empty, None)
     }
 
     findQuery
+      .skip(paginate.skipCount)
       .cursor[Entity]()
-      .collect[Vector](maxDocs = -1, err = Cursor.FailOnError[Vector[Entity]]())
+      .collect[Vector](maxDocs = paginate.maxDocs, err = Cursor.FailOnError[Vector[Entity]]())
   }
 
   def findById(id: String): Future[Option[Entity]] = collection.flatMap { c =>

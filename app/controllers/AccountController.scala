@@ -4,7 +4,7 @@ import javax.inject.{Inject, Singleton}
 import persistence.models.Account
 import JSONSerializer._
 import persistence.collections.PaymentCollection
-import play.api.Logging
+import play.api.{Configuration, Logging}
 import play.api.libs.circe.Circe
 import play.api.mvc.{AbstractController, ControllerComponents}
 import reactivemongo.api.bson.BSONObjectID
@@ -14,6 +14,7 @@ import io.circe.syntax._
 @Singleton
 class AccountController @Inject()(cc: ControllerComponents,
                                   paymentCollection: PaymentCollection,
+                                  appConfig:Configuration,
                                   override val authenticationService: AuthenticationService)
   extends AbstractController(cc)
   with AppSecurity
@@ -22,10 +23,11 @@ class AccountController @Inject()(cc: ControllerComponents,
   with Logging {
 
   implicit val exec = cc.executionContext
+  val paginate = Paginate.curried(appConfig.get[Int]("rest.page-size"))
 
-  def findPayments(accountId: String) = withUser { user =>
+  def findPayments(accountId: String, page:Option[Int]) = withUser { user =>
     Action.async { req =>
-      paymentCollection.findByAccount(BSONObjectID.parse(accountId).get).map(xs => Ok(xs.asJson))
+      paymentCollection.findByAccount(BSONObjectID.parse(accountId).get, paginate(page)).map(xs => Ok(xs.asJson))
     }
   }
 }

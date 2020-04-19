@@ -1,5 +1,6 @@
 package persistence.collections
 
+import controllers.Paginate
 import javax.inject.{Inject, Singleton}
 import persistence.models.Payment
 import play.api.Logging
@@ -34,13 +35,14 @@ class PaymentCollection @Inject()(mongo: ReactiveMongoApi)(override implicit val
 
   override def update(id: String, entity: Payment): Future[Payment] = throw new NotImplementedError("totalAmount update must be handled!")
 
-  def findByAccount(accountId: BSONObjectID): Future[Vector[Payment]] = {
+  def findByAccount(accountId: BSONObjectID, paginate:Paginate): Future[Vector[Payment]] = {
     val query = BSONDocument("_accountId" -> accountId)
     collection.flatMap { c =>
-      c.find(query)
+      c.find(query, None)
         .sort(this.sortOrder.get)
+        .skip(paginate.skipCount)
         .cursor[Payment]()
-        .collect[Vector](maxDocs = -1, err = Cursor.FailOnError[Vector[Payment]]())
+        .collect[Vector](maxDocs = paginate.maxDocs, err = Cursor.FailOnError[Vector[Payment]]())
     }
   }
 

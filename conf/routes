@@ -10,7 +10,7 @@ GET     /                           controllers.HomeController.index
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 
-GET     /payments                     controllers.PaymentController.findAll
+GET     /payments                     controllers.PaymentController.findAll(page: Option[Int])
 POST    /payments                     controllers.PaymentController.create
 GET     /payments/:id                 controllers.PaymentController.findById(id: String)
 DELETE  /payments/:id                 controllers.PaymentController.deleteById(id: String)
@@ -22,9 +22,9 @@ POST   /seed                     controllers.DevController.seed
 #GET     /accounts/:id                 controllers.AccountController.findById(id: Long)
 #DELETE  /accounts/:id                 controllers.AccountController.deleteById(id: Long)
 
-GET   /accounts/:id/payments          controllers.AccountController.findPayments(id: String)
+GET   /accounts/:id/payments          controllers.AccountController.findPayments(id: String, page: Option[Int])
 
-GET     /budgets                     controllers.BudgetController.findAll
+GET     /budgets                     controllers.BudgetController.findAll(page: Option[Int])
 POST    /budgets                     controllers.BudgetController.create
 GET     /budgets/:id                 controllers.BudgetController.findById(id: String)
 DELETE  /budgets/:id                 controllers.BudgetController.deleteById(id: String)
