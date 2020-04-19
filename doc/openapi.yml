@@ -19,6 +19,7 @@ paths:
           schema:
             type: string
             format: uuid
+        - $ref: '#/components/parameters/pagination'
       responses:
         '200':
           description: OK
@@ -34,6 +35,8 @@ paths:
   /budgets:
     get:
       operationId: findBudgets
+      parameters:
+        - $ref: '#/components/parameters/pagination'
       responses:
         '200':
           description: OK
@@ -103,6 +106,8 @@ paths:
   /payments:
     get:
       operationId: findPayments
+      parameters:
+        - $ref: '#/components/parameters/pagination'
       responses:
         '200':
           description: OK
@@ -173,6 +178,13 @@ components:
       schema:
         type: string
         format: uuid
+    pagination:
+      name: page
+      in: query
+      required: false
+      description: the page number to query. If empty all records are returned.
+      schema:
+        type: integer
   schemas:
     Account:
       properties:
