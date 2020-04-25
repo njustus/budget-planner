@@ -1,19 +1,29 @@
-<mat-accordion *ngIf="!!payments">
+<ng-container *ngIf="!!payments">
+  <mat-accordion>
 
-  <mat-expansion-panel *ngFor="let payment of payments" class="payment-item">
-    <mat-expansion-panel-header>
-      <mat-panel-description class="payment-item_header">
-        <div>{{payment.date | date: 'mediumDate'}}</div>
-        <div>{{payment.name}}</div>
-        <div [ngClass]="{'positive-currency-text': payment.amount>=0, 'negative-currency-text': payment.amount<0}">{{payment.amount | currency: '€'}}</div>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+    <mat-expansion-panel *ngFor="let payment of payments" class="payment-item">
+      <mat-expansion-panel-header>
+        <mat-panel-description class="payment-item_header">
+          <div>{{payment.date | date: 'mediumDate'}}</div>
+          <div>{{payment.name}}</div>
+          <div [ngClass]="{'positive-currency-text': payment.amount>=0, 'negative-currency-text': payment.amount<0}">{{payment.amount | currency: '€'}}</div>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-    <p>{{payment.description}}</p>
-    <mat-action-row>
-      <button mat-button color="warn" (click)="editPayment(payment)">Edit</button>
-      <button mat-button color="warn" (click)="deletePayment(payment)">Delete</button>
-    </mat-action-row>
-  </mat-expansion-panel>
+      <p>{{payment.description}}</p>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="editPayment(payment)">Edit</button>
+        <button mat-button color="warn" (click)="deletePayment(payment)">Delete</button>
+      </mat-action-row>
+    </mat-expansion-panel>
 
-</mat-accordion>
+  </mat-accordion>
+
+  <mat-paginator
+                 [pageSize]="pageData.pageSize"
+                 [pageIndex]="pageData.pageNumber-1"
+                 [length]="pageData.total"
+                 [hidePageSize]="true"
+                 (page)="pageChanged($event)">
+  </mat-paginator>
+</ng-container>
