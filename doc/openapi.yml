@@ -192,6 +192,7 @@ components:
       schema:
         type: string
         format: uuid
+      example: 5e92cbb1f60000360197688d
     pagination:
       name: page
       in: query
@@ -216,6 +217,12 @@ components:
         _id:
           format: uuid
           type: string
+      example:
+        {
+          "name": "Guru-Guru",
+          "totalAmount": 14550.75,
+          "_id": "5e92cbb1f60000360197688d"
+        }
     Budget:
       properties:
         name:
@@ -235,6 +242,29 @@ components:
         _id:
           format: uuid
           type: string
+      example:
+        {
+            "name": "littel.co",
+            "description": "Evolution? they said to themselves, Who needs it?",
+            "accounts": [
+                {
+                    "name": "Guru-Guru",
+                    "totalAmount": 14550.759,
+                    "_id": "5e92cbb1f60000360197688d"
+                },
+                {
+                    "name": "Walrus",
+                    "totalAmount": 25317.65,
+                    "_id": "5e92cbb1f60000360197688e"
+                }
+            ],
+            "investors": [
+                "nico",
+                "sarah"
+            ],
+            "owner": "test",
+            "_id": "5e92cbb1f60000360197688f"
+        }
     Payment:
       properties:
         name:
@@ -255,6 +285,16 @@ components:
         _id:
           format: uuid
           type: string
+      example:
+        {
+            "name": "Fantastic Rubber Keyboard",
+            "description": "Dark and difficult times lie ahead. [...]",
+            "amount": 477.46,
+            "date": "2020-04-07",
+            "owner": "test",
+            "_accountId": "5e92cbb1f60000360197688d",
+            "_id": "5e92cbb1f600004001976956"
+        }
     AuthUser:
       properties:
         username:
@@ -267,3 +307,10 @@ components:
           type: string
       required:
         - username
+      example:
+        {
+            "username": "test",
+            "email": "test@xample.com",
+            "first_name": "Test",
+            "last_name": null
+        }
