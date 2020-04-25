@@ -27,7 +27,13 @@ class AccountController @Inject()(cc: ControllerComponents,
 
   def findPayments(accountId: String, page:Option[Int]) = withUser { user =>
     Action.async { req =>
-      paymentCollection.findByAccount(BSONObjectID.parse(accountId).get, paginate(page)).map(xs => Ok(xs.asJson))
+      paymentCollection.findByAccount(BSONObjectID.parse(accountId).get, paginate(page)).map { paginated =>
+          logger.debug(s"found  ${paginated.totalCount} entries; returning page: ${paginated.pageNumber.getOrElse(-1)}")
+          paginated.rangeString match {
+            case Some(range) => Ok(paginated.data.asJson).withHeaders(CONTENT_RANGE -> range)
+            case None => Ok(paginated.data.asJson)
+          }
+        }
     }
   }
 }

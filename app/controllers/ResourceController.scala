@@ -23,7 +23,7 @@ abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.c
 
     def findAll(page: Option[Int]) = withUser { user =>
       Action.async { implicit request =>
-        persistence.findAll(paginate(page)).map { paginated: PaginatedEntity[Entity] =>
+        persistence.findAll(paginate(page)).map { paginated =>
           logger.debug(s"found  ${paginated.totalCount} entries; returning page: ${paginated.pageNumber.getOrElse(-1)}")
           paginated.rangeString match {
             case Some(range) => Ok(paginated.data.asJson).withHeaders(CONTENT_RANGE -> range)

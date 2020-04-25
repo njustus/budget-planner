@@ -23,6 +23,9 @@ paths:
       responses:
         '200':
           description: OK
+          headers:
+            Content-Range:
+              $ref: '#/components/headers/Content-Range'
           content:
             application/json:
               schema:
