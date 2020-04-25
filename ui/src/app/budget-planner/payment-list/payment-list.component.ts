@@ -4,6 +4,9 @@ import { formatCurrency } from '@angular/common';
 import { DefaultService } from 'generated-src';
 import { MatDialog } from '@angular/material';
 import { EditPaymentDialogComponent } from '../edit-payment-dialog/edit-payment-dialog.component';
+import {PageEvent} from "@angular/material/paginator";
+
+const rangeRegex = /\d+\s*--\s*\d+\s*\/\s*\d+/gm;
 
 @Component({
   selector: 'app-payment-list',

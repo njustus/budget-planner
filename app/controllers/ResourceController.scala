@@ -1,9 +1,9 @@
 package controllers
 
-import persistence.models.{AuthUser, BaseEntity}
+import persistence.models.{AuthUser, BaseEntity, PaginatedEntity}
 import play.api.{Application, Configuration, Logging}
 import play.api.libs.circe.Circe
-import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
+import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, ResponseHeader, Result}
 import io.circe.syntax._
 import persistence.collections.CRUDCollection
 import security.AppSecurity
@@ -23,9 +23,12 @@ abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.c
 
     def findAll(page: Option[Int]) = withUser { user =>
       Action.async { implicit request =>
-        persistence.findAll(paginate(page)).map { xs =>
-          logger.debug(s"found ${xs.knownSize} entries")
-          Ok(xs.asJson)
+        persistence.findAll(paginate(page)).map { paginated: PaginatedEntity[Entity] =>
+          logger.debug(s"found  ${paginated.totalCount} entries; returning page: ${paginated.pageNumber.getOrElse(-1)}")
+          paginated.rangeString match {
+            case Some(range) => Ok(paginated.data.asJson).withHeaders(CONTENT_RANGE -> range)
+            case None => Ok(paginated.data.asJson)
+          }
         }
       }
     }

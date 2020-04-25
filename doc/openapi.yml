@@ -40,6 +40,9 @@ paths:
       responses:
         '200':
           description: OK
+          headers:
+            Content-Range:
+              $ref: '#/components/headers/Content-Range'
           content:
             application/json:
               schema:
@@ -116,6 +119,9 @@ paths:
       responses:
         '200':
           description: OK
+          headers:
+            Content-Range:
+              $ref: '#/components/headers/Content-Range'
           content:
             application/json:
               schema:
@@ -190,6 +196,12 @@ components:
       description: the page number to query. If empty all records are returned.
       schema:
         type: integer
+  headers:
+    Content-Range:
+      description: the paginated entity range
+      schema:
+        type: string
+      example: "0--100 / 401"
   schemas:
     Account:
       properties:
