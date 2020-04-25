@@ -19,9 +19,9 @@ class BudgetController @Inject()(cc: ControllerComponents,
 
   override def createRequestEntity(user:AuthUser, budget:Budget): Budget = budget.copy(owner=Some(user.username), investors = Seq(user.username))
 
-  def addInvestor(budgetId: String) = withUser { user =>
-    Action.async(circe.json[Investor]) { implicit request =>
-      budgetCollection.addInvestor(budgetId, request.body.username).map {
+  def updateInvestors(budgetId: String) = withUser { user =>
+    Action.async(circe.json[Seq[String]]) { implicit request =>
+      budgetCollection.updateInvestors(budgetId, request.body).map {
         case Some(b) => Ok(b.asJson)
         case None => NotFound
       }

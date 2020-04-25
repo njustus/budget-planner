@@ -35,9 +35,7 @@ export class InvideInvestorDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    const users = this.investorForm.value.usernames.map(username => ({username}))
-
-    const observables = users.map(user => this.apiSvc.addInvestor(this.data.budget._id, user))
-    forkJoin(observables).subscribe(results => this.dialogRef.close())
+    const users = this.investorForm.value.usernames
+    this.apiSvc.updateInvestors(this.data.budget._id, users).subscribe(() => this.dialogRef.close())
   }
 }

@@ -85,8 +85,9 @@ paths:
           description: entity deleted
 
   /budgets/{id}/investors:
-    post:
-      operationId: addInvestor
+    patch:
+      operationId: updateInvestors
+      description: Replaces the list of investors in this Budget.
       parameters:
         - $ref: '#/components/parameters/entityId'
       requestBody:
@@ -94,7 +95,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Investor'
+              type: array
+              description: list of users that should be used as investors/collaborators
+              items:
+                type: string
+                description: username
       responses:
         '200':
           description: ok
@@ -244,12 +249,6 @@ components:
         first_name:
           type: string
         last_name:
-          type: string
-      required:
-        - username
-    Investor:
-      properties:
-        username:
           type: string
       required:
         - username
