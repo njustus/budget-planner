@@ -1,7 +1,7 @@
 package persistence.collections
 
 import javax.inject.{Inject, Singleton}
-import persistence.models.{Budget, Investor}
+import persistence.models.Budget
 import play.api.Logging
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.bson._
