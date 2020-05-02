@@ -2,14 +2,11 @@ package controllers
 
 import javax.inject._
 import play.api.mvc._
-import io.circe.syntax._
 import persistence.models.{AuthUser, Payment}
-import JSONSerializer._
 import persistence.collections.PaymentCollection
 import play.api.Configuration
 import security.AuthenticationService
-
-import scala.concurrent.Future
+import JSONSerializer._
 
 @Singleton
 class PaymentController @Inject()(cc: ControllerComponents,

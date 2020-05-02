@@ -1,8 +1,6 @@
 package controllers
 
 import javax.inject.{Inject, Singleton}
-import persistence.models.Account
-import JSONSerializer._
 import persistence.collections.PaymentCollection
 import play.api.{Configuration, Logging}
 import play.api.libs.circe.Circe

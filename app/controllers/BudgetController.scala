@@ -1,7 +1,5 @@
 package controllers
 
-import io.circe.generic.JsonCodec
-import io.circe.generic.extras.ConfiguredJsonCodec
 import javax.inject.{Inject, Singleton}
 import persistence.collections.BudgetCollection
 import persistence.models.{Account, AuthUser, Budget, Payment}
@@ -9,6 +7,7 @@ import play.api.mvc.ControllerComponents
 import security.AuthenticationService
 import io.circe.syntax._
 import play.api.Configuration
+import JSONSerializer._
 
 @Singleton
 class BudgetController @Inject()(cc: ControllerComponents,

@@ -2,11 +2,8 @@ package persistence.models
 
 import java.time.LocalDate
 
-import io.circe.generic.extras.ConfiguredJsonCodec
-import controllers.JSONSerializer._
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.BSONObjectID
 
-@ConfiguredJsonCodec
 case class Payment(name: String,
                    description:Option[String],
                    amount: Double,
