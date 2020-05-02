@@ -1,7 +1,8 @@
 package persistence.collections
 
+import controllers.Paginate
 import javax.inject.{Inject, Singleton}
-import persistence.models.Budget
+import persistence.models.{Budget, PaginatedEntity}
 import play.api.Logging
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.bson._
@@ -18,6 +19,12 @@ class BudgetCollection @Inject()(mongo: ReactiveMongoApi)(override implicit val 
 
   override def sortOrder: Option[BSONDocument] = Some(BSONSerializer.orderByASC("name"))
   override def collection: Future[BSONCollection] = mongo.database.map(_.collection(BudgetCollection.collectionName))
+
+  def findByInvestor(investorUsername: String, paginate: Paginate): Future[PaginatedEntity[Budget]] = {
+    val query = BSONDocument("investors" -> BSONDocument("$in" -> BSONArray(investorUsername)))
+    logger.debug(s"findByInvestor: $query")
+    findByQuery(query)(paginate)
+  }
 
   def updateInvestors(id: String, investors: Seq[String]): Future[Option[Budget]] = {
     import BSONSerializer._

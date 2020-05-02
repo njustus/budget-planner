@@ -39,21 +39,9 @@ class PaymentCollection @Inject()(mongo: ReactiveMongoApi)(override implicit val
 
   def findByAccount(accountId: BSONObjectID, paginate:Paginate): Future[PaginatedEntity[Payment]] = {
     val query = BSONDocument("_accountId" -> accountId)
-    val data = collection.flatMap { c =>
-      c.find(query, None)
-        .sort(this.sortOrder.get)
-        .skip(paginate.skipCount)
-        .cursor[Payment]()
-        .collect[Vector](maxDocs = paginate.maxDocs, err = Cursor.FailOnError[Vector[Payment]]())
-    }
-
-    val totalSize = collectionSize(Some(query))
-
-    Applicative[Future].map2(data, totalSize) { (data, size) =>
-      PaginatedEntity(data, size, paginate)
-    }
+    logger.debug(s"findByAccount: $query")
+    findByQuery(query)(paginate)
   }
-
 }
 
 object PaymentCollection {

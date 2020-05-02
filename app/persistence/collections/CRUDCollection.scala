@@ -28,23 +28,7 @@ trait CRUDCollection[Entity <: BaseEntity] {
     c.update(true).one(CRUDCollection.byIdSelector(id), modifier).map(_ => entity)
   }
 
-  def findAll(paginate: Paginate): Future[PaginatedEntity[Entity]] = collection.flatMap { c =>
-      val findQuery = sortOrder match {
-        case Some(sortOrder) => c.find(BSONDocument.empty, None).sort(sortOrder)
-        case None => c.find(BSONDocument.empty, None)
-      }
-
-      val totalSize = collectionSize()
-
-      val data = findQuery
-        .skip(paginate.skipCount)
-        .cursor[Entity]()
-        .collect[Vector](maxDocs = paginate.maxDocs, err = Cursor.FailOnError[Vector[Entity]]())
-
-      Applicative[Future].map2(data, totalSize) { (data, size) =>
-        PaginatedEntity(data, size, paginate)
-      }
-    }
+  def findAll: Paginate => Future[PaginatedEntity[Entity]] = findByQuery(BSONDocument.empty)
 
   def findById(id: String): Future[Option[Entity]] = collection.flatMap { c =>
     c.find(CRUDCollection.byIdSelector(id), None)
@@ -53,6 +37,24 @@ trait CRUDCollection[Entity <: BaseEntity] {
 
   def deleteById(id: String): Future[Unit] = collection.flatMap { c =>
     c.delete().one(CRUDCollection.byIdSelector(id)).map(_ => ())
+  }
+
+  protected def findByQuery(query: BSONDocument)(paginate:Paginate): Future[PaginatedEntity[Entity]] = collection.flatMap { c =>
+    val findQuery = sortOrder match {
+      case Some(sortOrder) => c.find(query, None).sort(sortOrder)
+      case None => c.find(query, None)
+    }
+
+    val totalSize = collectionSize()
+
+    val data = findQuery
+      .skip(paginate.skipCount)
+      .cursor[Entity]()
+      .collect[Vector](maxDocs = paginate.maxDocs, err = Cursor.FailOnError[Vector[Entity]]())
+
+    Applicative[Future].map2(data, totalSize) { (data, size) =>
+      PaginatedEntity(data, size, paginate)
+    }
   }
 }
 
