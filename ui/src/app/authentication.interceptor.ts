@@ -9,12 +9,16 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   constructor(private readonly authSvc: AuthenticationService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if(req.urlWithParams.indexOf("finance-manager") != -1) {
-      req.headers.append('Authorization', 'Bearer '+this.authSvc.currentToken)
-      return next.handle(req)
+    if(req.urlWithParams.indexOf("budget-planner") != -1) {
+      const reqNew = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${this.authSvc.currentToken}`
+        }
+      })
+      return next.handle(reqNew)
     } else {
       return next.handle(req)
     }
   }
-  
+
 }

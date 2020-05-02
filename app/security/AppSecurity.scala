@@ -14,17 +14,16 @@ trait AppSecurity {
   def authenticationService: AuthenticationService
 
   def username(request: RequestHeader): Option[AuthUser] = {
-//    val tokenOpt = request.headers.get(HeaderNames.AUTHORIZATION).collect { case AppSecurity.tokenExtractor(token) => token }
-//
-//    val userOpt = (token:String) => authenticationService.decodeToken(token) match {
-//      case Success(user) => Some(user)
-//      case Failure(exception) =>
-//        logger.warn(s"couldn't decode token; got: $exception")
-//        None
-//    }
-//
-//    tokenOpt.flatMap(userOpt)
-    Some(AuthUser("test", None, None, None))
+    val tokenOpt = request.headers.get(HeaderNames.AUTHORIZATION).collect { case AppSecurity.tokenExtractor(token) => token }
+
+    val userOpt = (token:String) => authenticationService.decodeToken(token) match {
+      case Success(user) => Some(user)
+      case Failure(exception) =>
+        logger.warn(s"couldn't decode token; got: $exception")
+        None
+    }
+
+    tokenOpt.flatMap(userOpt)
   }
 
   def onUnauthorized(request: RequestHeader): Result =
