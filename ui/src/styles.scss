@@ -2,10 +2,15 @@
 
 @import './assets/scss/grid';
 @import './assets/scss/variables';
+@import './assets/scss/theming.scss';
 
 * {
   margin: 0px;
   padding: 0px;
+}
+
+body {
+  background-color: #303030;
 }
 
 .negative-currency-text {
