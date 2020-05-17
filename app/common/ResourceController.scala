@@ -1,12 +1,11 @@
-package controllers
+package common
 
-import persistence.models.{AuthUser, BaseEntity, PaginatedEntity}
-import play.api.{Application, Configuration, Logging}
-import play.api.libs.circe.Circe
-import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, ResponseHeader, Result}
 import io.circe.syntax._
-import persistence.collections.CRUDCollection
+import play.api.libs.circe.Circe
+import play.api.mvc.{AbstractController, ControllerComponents}
+import play.api.{Configuration, Logging}
 import security.AppSecurity
+import users.AuthUser
 
 abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.circe.Decoder](cc: ControllerComponents,
                                                                                               appConfig: Configuration,

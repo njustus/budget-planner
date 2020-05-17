@@ -1,13 +1,10 @@
-package persistence.collections
+package common
 
 import cats.Applicative
 import cats.instances.future._
-import controllers.Paginate
-import persistence.models.{BaseEntity, PaginatedEntity}
-import reactivemongo.api.{Cursor, ReadConcern, ReadPreference}
-import reactivemongo.api.bson.BSONDocument
 import reactivemongo.api.bson.collection.BSONCollection
-import reactivemongo.api.bson.{BSONDocumentHandler, BSONObjectID}
+import reactivemongo.api.bson.{BSONDocument, BSONDocumentHandler, BSONObjectID}
+import reactivemongo.api.{Cursor, ReadConcern, ReadPreference}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -45,7 +42,7 @@ trait CRUDCollection[Entity <: BaseEntity] {
       case None => c.find(query, None)
     }
 
-    val totalSize = collectionSize()
+    val totalSize = collectionSize(Some(query))
 
     val data = findQuery
       .skip(paginate.skipCount)

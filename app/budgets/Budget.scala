@@ -1,6 +1,7 @@
-package persistence.models
+package budgets
 
-import reactivemongo.api.bson._
+import common.BaseEntity
+import reactivemongo.api.bson.BSONObjectID
 
 case class Budget(name: String,
                   description: Option[String],

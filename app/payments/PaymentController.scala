@@ -1,12 +1,11 @@
-package controllers
+package payments
 
+import common.ResourceController
 import javax.inject._
-import play.api.mvc._
-import persistence.models.{AuthUser, Payment}
-import persistence.collections.PaymentCollection
 import play.api.Configuration
+import play.api.mvc._
 import security.AuthenticationService
-import JSONSerializer._
+import users.AuthUser
 
 @Singleton
 class PaymentController @Inject()(cc: ControllerComponents,

@@ -1,12 +1,12 @@
-package controllers
+package users
 
+import common.JSONSerializer
+import io.circe.syntax._
 import javax.inject.{Inject, Singleton}
-import persistence.collections.UserCollection
 import play.api.Logging
 import play.api.libs.circe.Circe
 import play.api.mvc.{AbstractController, ControllerComponents}
 import security.{AppSecurity, AuthenticationService}
-import io.circe.syntax._
 
 @Singleton
 class UserController @Inject()(cc: ControllerComponents,

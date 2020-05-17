@@ -1,8 +1,7 @@
-package persistence.collections
+package budgets
 
-import controllers.Paginate
+import common.{CRUDCollection, Paginate, PaginatedEntity, BSONSerializer}
 import javax.inject.{Inject, Singleton}
-import persistence.models.{Budget, PaginatedEntity}
 import play.api.Logging
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.bson._
@@ -13,9 +12,10 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class BudgetCollection @Inject()(mongo: ReactiveMongoApi)(override implicit val exec: ExecutionContext)
   extends CRUDCollection[Budget]
+  with BSONBudgetsSupport
   with Logging {
 
-  override implicit def handler: BSONDocumentHandler[Budget] = BSONSerializer.budgetHandler
+  override implicit def handler: BSONDocumentHandler[Budget] = budgetHandler
 
   override def sortOrder: Option[BSONDocument] = Some(BSONSerializer.orderByASC("name"))
   override def collection: Future[BSONCollection] = mongo.database.map(_.collection(BudgetCollection.collectionName))
@@ -27,7 +27,6 @@ class BudgetCollection @Inject()(mongo: ReactiveMongoApi)(override implicit val 
   }
 
   def updateInvestors(id: String, investors: Seq[String]): Future[Option[Budget]] = {
-    import BSONSerializer._
     for {
       bsonArray <- Future.fromTry(BSON.write(investors))
       c <- collection

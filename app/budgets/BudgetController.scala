@@ -1,13 +1,12 @@
-package controllers
+package budgets
 
-import javax.inject.{Inject, Singleton}
-import persistence.collections.BudgetCollection
-import persistence.models.{Account, AuthUser, Budget, Payment}
-import play.api.mvc.{ControllerComponents, EssentialAction}
-import security.AuthenticationService
+import common.ResourceController
 import io.circe.syntax._
+import javax.inject.{Inject, Singleton}
 import play.api.Configuration
-import JSONSerializer._
+import play.api.mvc.ControllerComponents
+import security.AuthenticationService
+import users.AuthUser
 
 @Singleton
 class BudgetController @Inject()(cc: ControllerComponents,

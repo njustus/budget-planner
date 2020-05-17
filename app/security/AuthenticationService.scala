@@ -8,7 +8,7 @@ import javax.inject.Inject
 import play.api.{Configuration, Logging}
 import io.circe.parser
 import pdi.jwt.{JwtAlgorithm, JwtCirce, JwtClaim, JwtHeader, JwtOptions}
-import persistence.models.AuthUser
+import users.AuthUser
 
 import scala.util.Try
 

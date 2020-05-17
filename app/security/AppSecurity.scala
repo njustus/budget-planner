@@ -1,9 +1,9 @@
 package security
 
-import persistence.models.AuthUser
 import play.api.Logging
 import play.api.mvc._
 import play.mvc.Http.HeaderNames
+import users.AuthUser
 
 import scala.util.matching.Regex
 import scala.util.{Failure, Success}

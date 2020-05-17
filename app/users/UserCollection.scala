@@ -1,19 +1,19 @@
-package persistence.collections
+package users
 
+import common.BSONSerializer
 import javax.inject.{Inject, Singleton}
-import persistence.models.AuthUser
 import play.api.Logging
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.Cursor
-import reactivemongo.api.bson.{BSONDocument, BSONDocumentHandler}
 import reactivemongo.api.bson.collection.BSONCollection
+import reactivemongo.api.bson.BSONDocument
 
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class UserCollection @Inject()(mongo: ReactiveMongoApi)(implicit val exec: ExecutionContext) {
-
-  implicit val handler: BSONDocumentHandler[AuthUser] = BSONSerializer.authUserHandler
+class UserCollection @Inject()(mongo: ReactiveMongoApi)(implicit val exec: ExecutionContext)
+  extends BSONUserSupport
+  with Logging {
 
   private def collection: Future[BSONCollection] = mongo.connection.database(UserCollection.databaseName).map(_.collection(UserCollection.collectionName))
 

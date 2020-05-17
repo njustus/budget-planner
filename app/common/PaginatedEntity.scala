@@ -1,6 +1,4 @@
-package persistence.models
-
-import controllers.Paginate
+package common
 
 case class PaginatedEntity[Entity<:BaseEntity](data: Vector[Entity],
                                    pageNumber:Option[Int],

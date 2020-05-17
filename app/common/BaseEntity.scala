@@ -1,4 +1,4 @@
-package persistence.models
+package common
 
 import reactivemongo.api.bson._
 

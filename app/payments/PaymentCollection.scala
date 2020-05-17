@@ -1,23 +1,22 @@
-package persistence.collections
+package payments
 
-import controllers.Paginate
+import budgets.BudgetCollection
+import common.{BSONSerializer, CRUDCollection, Paginate, PaginatedEntity}
 import javax.inject.{Inject, Singleton}
-import persistence.models.{PaginatedEntity, Payment}
 import play.api.Logging
 import play.modules.reactivemongo.ReactiveMongoApi
-import reactivemongo.api.Cursor
-import reactivemongo.api.bson.{BSONDocument, BSONDocumentHandler, BSONObjectID}
 import reactivemongo.api.bson.collection.BSONCollection
+import reactivemongo.api.bson.{BSONDocument, BSONDocumentHandler, BSONObjectID}
 
 import scala.concurrent.{ExecutionContext, Future}
-import cats.Applicative
-import cats.instances.future._
 
 @Singleton
 class PaymentCollection @Inject()(mongo: ReactiveMongoApi)(override implicit val exec: ExecutionContext)
-  extends CRUDCollection[Payment] with Logging {
+  extends CRUDCollection[Payment]
+  with BSONPaymentsSupport
+    with Logging {
 
-  override implicit def handler: BSONDocumentHandler[Payment] = BSONSerializer.paymentHandler
+  override implicit def handler: BSONDocumentHandler[Payment] = paymentHandler
 
   override def collection: Future[BSONCollection] = mongo.database.map(_.collection(PaymentCollection.collectionName))
 

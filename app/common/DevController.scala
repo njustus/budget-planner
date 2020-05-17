@@ -1,19 +1,19 @@
-package controllers
+package common
 
 import java.time.{LocalDate, ZoneId}
 import java.util.concurrent.TimeUnit
 
-import javax.inject.{Inject, Singleton}
-import persistence.collections.{BudgetCollection, PaymentCollection}
-import persistence.models.{Account, AuthUser, Budget, Payment}
-import play.api.mvc.{AbstractController, ControllerComponents}
-import reactivemongo.api.bson.BSONObjectID
-import security.AuthenticationService
-import JSONSerializer._
+import budgets.{Account, Budget, BudgetCollection}
 import com.github.javafaker.Faker
 import io.circe.syntax._
+import javax.inject.{Inject, Singleton}
+import payments.{Payment, PaymentCollection}
+import budgets._
+import payments._
 import play.api.Logging
 import play.api.libs.circe.Circe
+import play.api.mvc.{AbstractController, ControllerComponents}
+import reactivemongo.api.bson.BSONObjectID
 
 import scala.concurrent.Future
 @Singleton
@@ -60,7 +60,7 @@ class DevController @Inject()(cc: ControllerComponents,
   def payments(accountId: BSONObjectID): Future[Seq[Payment]] = {
     Future.sequence(
         (0 until faker.number().numberBetween(0, 100)).map { _ =>
-        val payment = Payment(
+        val payment = _root_.payments.Payment(
           faker.commerce().productName(),
           Some(faker.harryPotter().quote()),
           faker.number().randomDouble(2, -600, 1000),

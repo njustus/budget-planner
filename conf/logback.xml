@@ -35,8 +35,7 @@
   <logger name="application" level="DEBUG" />
   <logger name="controllers" level="DEBUG" />
   <logger name="services" level="DEBUG" />
-  <logger name="security" level="DEBUG" />
-  <logger name="persistence" level="DEBUG" />
+  <logger name="security" level="INFO" />
 <!--  <logger name="reactivemongo" level="DEBUG" />-->
 
   <root level="INFO">

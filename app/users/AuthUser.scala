@@ -1,4 +1,4 @@
-package persistence.models
+package users
 
 import io.circe.generic.JsonCodec
 

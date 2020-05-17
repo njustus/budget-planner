@@ -1,13 +1,14 @@
-package controllers
+package budgets
 
+import common.{JSONSerializer, Paginate}
+import io.circe.syntax._
 import javax.inject.{Inject, Singleton}
-import persistence.collections.PaymentCollection
-import play.api.{Configuration, Logging}
+import payments.PaymentCollection
 import play.api.libs.circe.Circe
 import play.api.mvc.{AbstractController, ControllerComponents}
+import play.api.{Configuration, Logging}
 import reactivemongo.api.bson.BSONObjectID
 import security.{AppSecurity, AuthenticationService}
-import io.circe.syntax._
 
 @Singleton
 class AccountController @Inject()(cc: ControllerComponents,

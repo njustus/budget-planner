@@ -1,4 +1,4 @@
-package controllers
+package common
 
 case class Paginate(pageSize: Int, pageNumber: Option[Int]) {
 

@@ -1,7 +1,8 @@
-package persistence.models
+package payments
 
 import java.time.LocalDate
 
+import common.BaseEntity
 import reactivemongo.api.bson.BSONObjectID
 
 case class Payment(name: String,
