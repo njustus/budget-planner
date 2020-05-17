@@ -29,6 +29,7 @@ libraryDependencies ++= Seq(
   "io.scalaland" %% "chimney" % "0.5.+",
   "com.pauldijou" %% "jwt-circe" % "4.2.+",
   "com.github.javafaker" % "javafaker" % "0.+",
+  "com.github.pureconfig" %% "pureconfig" % "0.12.+",
   "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
 )
 

@@ -1,6 +1,6 @@
 package budgets
 
-import common.{BaseJsonSupport, Paginate}
+import common.{BaseJsonSupport, Paginate, bpconfig}
 import io.circe.syntax._
 import javax.inject.{Inject, Singleton}
 import payments.PaymentCollection
@@ -13,7 +13,7 @@ import security.{AppSecurity, AuthenticationService}
 @Singleton
 class AccountController @Inject()(cc: ControllerComponents,
                                   paymentCollection: PaymentCollection,
-                                  appConfig:Configuration,
+                                  config: bpconfig.BPConfig,
                                   override val authenticationService: AuthenticationService)
   extends AbstractController(cc)
   with AppSecurity
@@ -22,7 +22,7 @@ class AccountController @Inject()(cc: ControllerComponents,
   with Logging {
 
   implicit val exec = cc.executionContext
-  val paginate = Paginate.curried(appConfig.get[Int]("rest.page-size"))
+  val paginate = Paginate.curried(config.api.pageSize)
 
   def findPayments(accountId: String, page:Option[Int]) = withUser { user =>
     Action.async { req =>

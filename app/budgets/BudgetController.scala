@@ -1,6 +1,6 @@
 package budgets
 
-import common.ResourceController
+import common.{ResourceController, bpconfig}
 import io.circe.syntax._
 import javax.inject.{Inject, Singleton}
 import play.api.Configuration
@@ -11,9 +11,9 @@ import users.AuthUser
 @Singleton
 class BudgetController @Inject()(cc: ControllerComponents,
                                  budgetCollection: BudgetCollection,
-                                appConfig: Configuration,
+                                  config: bpconfig.BPConfig,
                                  override val authenticationService: AuthenticationService)
-  extends ResourceController[Budget](cc, appConfig, budgetCollection) {
+  extends ResourceController[Budget](cc, config, budgetCollection) {
 
   override def createRequestEntity(user:AuthUser, budget:Budget): Budget = budget.copy(owner=Some(user.username), investors = Seq(user.username))
 

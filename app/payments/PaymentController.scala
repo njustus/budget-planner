@@ -1,6 +1,6 @@
 package payments
 
-import common.ResourceController
+import common.{ResourceController, bpconfig}
 import javax.inject._
 import play.api.Configuration
 import play.api.mvc._
@@ -10,9 +10,9 @@ import users.AuthUser
 @Singleton
 class PaymentController @Inject()(cc: ControllerComponents,
                                   paymentCollection: PaymentCollection,
-                                  appConfig:Configuration,
+                                  config: bpconfig.BPConfig,
                                  override val authenticationService: AuthenticationService)
-  extends ResourceController[Payment](cc, appConfig, paymentCollection) {
+  extends ResourceController[Payment](cc, config, paymentCollection) {
 
   override def createRequestEntity(user:AuthUser, payment:Payment): Payment = payment.copy(owner=Some(user.username))
 }

@@ -8,7 +8,7 @@ import security.AppSecurity
 import users.AuthUser
 
 abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.circe.Decoder](cc: ControllerComponents,
-                                                                                              appConfig: Configuration,
+                                                                                              config: bpconfig.BPConfig,
                                                                                               persistence:CRUDCollection[Entity])
   extends AbstractController(cc)
   with AppSecurity
@@ -18,7 +18,7 @@ abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.c
 
   implicit val ec = cc.executionContext
 
-  val paginate = Paginate.curried(appConfig.get[Int]("rest.page-size"))
+  val paginate = Paginate.curried(config.api.pageSize)
 
     def findAll(page: Option[Int]) = withUser { user =>
       Action.async { implicit request =>
