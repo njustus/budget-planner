@@ -13,7 +13,7 @@ abstract class ResourceController[Entity <: BaseEntity : io.circe.Encoder : io.c
   extends AbstractController(cc)
   with AppSecurity
   with Circe
-  with JSONSerializer
+  with BaseJsonSupport
   with Logging {
 
   implicit val ec = cc.executionContext

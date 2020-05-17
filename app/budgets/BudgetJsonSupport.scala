@@ -1,11 +1,11 @@
 package budgets
 
-import common.JSONSerializer
+import common.BaseJsonSupport
 import io.circe._
 import io.circe.generic.extras.semiauto._
 import reactivemongo.api.bson.BSONObjectID
 
-trait BudgetJsonSupport extends JSONSerializer {
+trait BudgetJsonSupport extends BaseJsonSupport {
   // =========== override generated decoders to support lazily-generated BSONObjectIDs per entity
 
   implicit val accountEncoder: Encoder[Account] = deriveConfiguredEncoder[Account]

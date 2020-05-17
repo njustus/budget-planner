@@ -1,6 +1,6 @@
 package budgets
 
-import common.{JSONSerializer, Paginate}
+import common.{BaseJsonSupport, Paginate}
 import io.circe.syntax._
 import javax.inject.{Inject, Singleton}
 import payments.PaymentCollection
@@ -18,7 +18,7 @@ class AccountController @Inject()(cc: ControllerComponents,
   extends AbstractController(cc)
   with AppSecurity
   with Circe
-  with JSONSerializer
+  with BaseJsonSupport
   with Logging {
 
   implicit val exec = cc.executionContext

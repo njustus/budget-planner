@@ -1,6 +1,6 @@
 package users
 
-import common.BSONSerializer
+import common.BaseBSONHandler
 import javax.inject.{Inject, Singleton}
 import play.api.Logging
 import play.modules.reactivemongo.ReactiveMongoApi
@@ -19,7 +19,7 @@ class UserCollection @Inject()(mongo: ReactiveMongoApi)(implicit val exec: Execu
 
   def findAll(): Future[Vector[AuthUser]] = collection.flatMap { c =>
     c.find(BSONDocument.empty, None)
-      .sort(BSONSerializer.orderByASC("username"))
+      .sort(BaseBSONHandler.orderByASC("username"))
       .cursor[AuthUser]()
       .collect[Vector](maxDocs = -1, err = Cursor.FailOnError[Vector[AuthUser]]())
   }

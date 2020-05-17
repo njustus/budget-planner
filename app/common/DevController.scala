@@ -22,7 +22,7 @@ class DevController @Inject()(cc: ControllerComponents,
                                  paymentCollection: PaymentCollection)
   extends AbstractController(cc)
   with Circe
-  with JSONSerializer
+  with BaseJsonSupport
   with Logging {
 
   implicit val exec = cc.executionContext

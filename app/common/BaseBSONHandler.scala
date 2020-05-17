@@ -2,10 +2,10 @@ package common
 
 import reactivemongo.api.bson.BSONDocument
 
-trait BSONSerializer {
+trait BaseBSONHandler {
 }
 
-object BSONSerializer {
+object BaseBSONHandler {
   val ORDER_DESC: Int = -1
   val ORDER_ASC: Int = 1
 

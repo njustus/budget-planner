@@ -1,6 +1,6 @@
 package budgets
 
-import common.{CRUDCollection, Paginate, PaginatedEntity, BSONSerializer}
+import common.{CRUDCollection, Paginate, PaginatedEntity, BaseBSONHandler}
 import javax.inject.{Inject, Singleton}
 import play.api.Logging
 import play.modules.reactivemongo.ReactiveMongoApi
@@ -17,7 +17,7 @@ class BudgetCollection @Inject()(mongo: ReactiveMongoApi)(override implicit val 
 
   override implicit def handler: BSONDocumentHandler[Budget] = budgetHandler
 
-  override def sortOrder: Option[BSONDocument] = Some(BSONSerializer.orderByASC("name"))
+  override def sortOrder: Option[BSONDocument] = Some(BaseBSONHandler.orderByASC("name"))
   override def collection: Future[BSONCollection] = mongo.database.map(_.collection(BudgetCollection.collectionName))
 
   def findByInvestor(investorUsername: String, paginate: Paginate): Future[PaginatedEntity[Budget]] = {

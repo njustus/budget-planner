@@ -1,7 +1,7 @@
 package payments
 
 import budgets.BudgetCollection
-import common.{BSONSerializer, CRUDCollection, Paginate, PaginatedEntity}
+import common.{BaseBSONHandler, CRUDCollection, Paginate, PaginatedEntity}
 import javax.inject.{Inject, Singleton}
 import play.api.Logging
 import play.modules.reactivemongo.ReactiveMongoApi
@@ -20,7 +20,7 @@ class PaymentCollection @Inject()(mongo: ReactiveMongoApi)(override implicit val
 
   override def collection: Future[BSONCollection] = mongo.database.map(_.collection(PaymentCollection.collectionName))
 
-  override def sortOrder: Option[BSONDocument] = Some(BSONSerializer.orderByDESC("date"))
+  override def sortOrder: Option[BSONDocument] = Some(BaseBSONHandler.orderByDESC("date"))
 
   override def create(entity: Payment): Future[Payment] = {
     val accountSelector = BSONDocument("accounts._id" -> entity._accountId)

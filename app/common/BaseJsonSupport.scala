@@ -4,7 +4,7 @@ import io.circe._
 import io.circe.generic.extras.Configuration
 import reactivemongo.api.bson.BSONObjectID
 
-trait JSONSerializer {
+trait BaseJsonSupport {
 
   implicit val config: Configuration = Configuration.default.withDefaults
 

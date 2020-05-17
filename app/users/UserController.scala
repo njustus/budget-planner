@@ -1,6 +1,6 @@
 package users
 
-import common.JSONSerializer
+import common.BaseJsonSupport
 import io.circe.syntax._
 import javax.inject.{Inject, Singleton}
 import play.api.Logging
@@ -15,7 +15,7 @@ class UserController @Inject()(cc: ControllerComponents,
 extends AbstractController(cc)
   with AppSecurity
   with Circe
-  with JSONSerializer
+  with BaseJsonSupport
   with Logging {
 
   implicit val ec = cc.executionContext
