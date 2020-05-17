@@ -6,7 +6,7 @@
   <mat-card-content>
     <p>Please login with one of our supported services.</p>
 
-    <!-- <form action="api/v1/auths/developer/callback" method="POST"> -->
+    <form action="api/v1/auths/developer/callback" method="POST">
       <input type="text" hidden="true" name="username" [value]="selectedUser">
     <mat-form-field>
       <mat-label>Developer user</mat-label>
@@ -18,7 +18,7 @@
     </mat-form-field>
 
     <button type="submit" mat-button>Login</button>
-    <!-- </form> -->
+    </form>
 
     <mat-divider *ngIf="devUsers && devUsers.length>0"></mat-divider>
     <a mat-button [href]="'api/v1/auths/'+provider.provider" *ngFor="let provider of providers">{{provider.name}}</a>

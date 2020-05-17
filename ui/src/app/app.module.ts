@@ -28,7 +28,6 @@ import { ApiModule, BASE_PATH } from 'generated-src';
     CommonModule,
     SharedModule,
     BudgetPlannerModule,
-    ReactiveFormsModule,
     ApiModule
   ],
   providers: [
